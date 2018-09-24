@@ -1,65 +1,67 @@
-<nav class="navbar navbar-expand navbar-dark bg-primary" ng-if="isLogedIn">
-        <a class="navbar-brand" href="#">myApp</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-  
-        <div class="collapse navbar-collapse" id="navbarsExample02">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Modifier profil</a>
-            </li>
-          </ul>
-          <ul class="navbar-nav ">
-            <li class="nav-item">
-              <a class="nav-link" ng-click="logout()" href="#">Se déconnecter</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-<p></p>
-<h1>Bienvenue {{user.data.data.prenom}} {{user.data.data.nom}} !</h1> 
+// User home
+<div ng-if="isLogedIn">
+  <nav class="navbar navbar-expand navbar-dark bg-primary" >
+          <a class="navbar-brand" href="#">myApp</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+    
+          <div class="collapse navbar-collapse" id="navbarsExample02">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Modifier profil</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav ">
+              <li class="nav-item">
+                <a class="nav-link" ng-click="logout()" href="#">Se déconnecter</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+  <p></p>
+  <h1>Bienvenue {{user.data.data.prenom}} {{user.data.data.nom}} !, <small>Votre solde de congé est : {{user.data.data.solde}} </small></h1> 
 
-<div class="container">
-  <div class="card ">
-        <div class="card-header bg-info">
-          Demande
-        </div>
-        <div class="card-body ">
-          <h5 class="card-title">Demande de congé</h5>
-          <p class="card-text">Créer une demande de congé :</p>
-          <form name="myForm">
-        <div class="row col-md-7">
-          <div class="col">
-            <label class=" col-form-label">Date début</label>
-            <input required ng-model="dateD" class="form-control" type="date" >
+  <div class="container">
+    <div class="card ">
+          <div class="card-header bg-info">
+            Demande
           </div>
-          <div class="col">
-            <label class=" col-form-label">Date fin</label>
-            <input required ng-model="dateF" class="form-control" type="date" >
-          </div>
-          </div>
+          <div class="card-body ">
+            <h5 class="card-title">Demande de congé</h5>
+            <p class="card-text">Créer une demande de congé :</p>
+            <form name="myForm">
+          <div class="row col-md-7">
+            <div class="col">
+              <label class=" col-form-label">Date début</label>
+              <input required ng-model="dateD" class="form-control" type="date" >
+            </div>
+            <div class="col">
+              <label class=" col-form-label">Date fin</label>
+              <input required ng-model="dateF" class="form-control" type="date" >
+            </div>
+            </div>
+            <p></p>
+            <div class="row ">
+            <div class="col col-md-5">
+            <label for="exampleFormControlTextarea1">Motif d'absence</label>
+            <textarea class="form-control" required ng-model="motifAb" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            </div>
+          
           <p></p>
-          <div class="row ">
-          <div class="col col-md-5">
-          <label for="exampleFormControlTextarea1">Motif d'absence</label>
-          <textarea class="form-control" required ng-model="motifAb" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <button ng-disabled="myForm.$invalid || myForm.$pending" ng-click="sendDemande()"  class="btn btn-primary">Demande</button>
+            <p></p>
+              <div class="alert alert-success col-md-5" ng-if="showMsg" role="alert">
+                demande enregistré  :) !
+              </div>
+          </form>
           </div>
-          </div>
-        
+        </div>
         <p></p>
-          <button ng-disabled="myForm.$invalid || myForm.$pending" ng-click="sendDemande()"  class="btn btn-primary">Demande</button>
-          <p></p>
-            <div class="alert alert-success col-md-5" ng-if="showMsg" role="alert">
-              demande enregistré  :) !
-             </div>
-        </form>
-        </div>
-      </div>
-      <p></p>
+  </div>
 </div>
-
 
