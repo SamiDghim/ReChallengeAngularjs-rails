@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date_debut: 
+  date_fin: 
+  motifAb: 
+  motifR: 
+  etat: MyString
+  default: 
+
+two:
+  date_debut: 
+  date_fin: 
+  motifAb: 
+  motifR: 
+  etat: MyString
+  default: 
