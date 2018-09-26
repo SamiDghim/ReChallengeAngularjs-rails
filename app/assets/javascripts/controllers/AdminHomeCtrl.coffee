@@ -32,7 +32,11 @@
                  GetAllDemandsT()
             ,(error)->
                 console.log error,'Users not found'
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> FEATURE-login-and-inscription
         else
             $location.path '/login'
             return
@@ -108,4 +112,8 @@
 
     $scope.reloadDTPage = (p) ->
             $location.url('/AdminHome?DTPage='+p)
+<<<<<<< HEAD
             $window.location.reload()
+=======
+            $window.location.reload()
+>>>>>>> FEATURE-login-and-inscription
