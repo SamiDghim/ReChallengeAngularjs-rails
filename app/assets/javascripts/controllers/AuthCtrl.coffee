@@ -1,6 +1,6 @@
 @app.controller 'authCtrl', ($scope,Auth,$location,$http) ->
     $scope.isLogedIn=false;
-
+    
     $http.get('/GetLoggedUserInfo').then (res) ->
             console.log 'res user json', res
             $scope.user=res

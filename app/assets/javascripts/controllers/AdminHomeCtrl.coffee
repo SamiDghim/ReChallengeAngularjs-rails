@@ -22,7 +22,7 @@
     $http.get('/GetLoggedUserInfo').then (res) ->
         console.log 'res user json', res
         if res.data.data?
-            $scope.isLogedIn=true
+            $location.path '/login' if res.data.data.role is "user"
             $scope.user=res.data.data
             $http.get('/conge/GetAllUsers').then (users) ->
                  console.log users , 'Users for Admin'
