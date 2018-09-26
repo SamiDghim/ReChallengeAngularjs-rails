@@ -1,6 +1,6 @@
 @app.controller 'authCtrl', ($scope,Auth,$location,$http) ->
     $scope.isLogedIn=false;
-
+    
     $http.get('/GetLoggedUserInfo').then (res) ->
             console.log 'res user json', res
             $scope.user=res
@@ -8,7 +8,7 @@
                 if res.data.data.role is "user"
                      $location.path '/UserHome'
                 else
-                     $location.path '/AdminHome'
+                    $location.path '/AdminHome'
             if !res.data.data?
                 $scope.isLogedIn=true;
         ,(error)->

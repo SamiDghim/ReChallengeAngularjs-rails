@@ -4,10 +4,11 @@
     <title>TestApp</title>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application'%>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <%= csrf_meta_tags %>
     
   </head>
-  <body  ng-app="app" ng-controller="homeUserCtrl" >
+  <body  ng-app="app">
       <ng-view></ng-view>
   </body>
 </html>

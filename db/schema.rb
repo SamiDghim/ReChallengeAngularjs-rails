@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180924134743) do
+ActiveRecord::Schema.define(version: 20180925081037) do
 
   create_table "conge_demandes", force: :cascade do |t|
     t.date "date_debut"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20180924134743) do
     t.string "nom"
     t.string "prenom"
     t.string "role", default: "user"
-    t.integer "solde"
+    t.integer "solde", default: 20
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
