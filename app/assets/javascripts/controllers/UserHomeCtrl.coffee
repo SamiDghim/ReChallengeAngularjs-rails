@@ -25,6 +25,7 @@
     $http.get('/GetLoggedUserInfo').then (res) ->
         console.log 'res user json', res
         if res.data.data?
+            $location.path '/login' if res.data.data.role is "admin"
             $scope.isLogedIn=true
             $scope.user=res
             $http.get('/conge/GetUserConges/'+$scope.user.data.data.id).then (conges) ->
