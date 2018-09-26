@@ -1,51 +1,26 @@
-<nav class="navbar navbar-expand navbar-dark bg-primary" ng-if="isLogedIn">
-        <a class="navbar-brand" href="#">myApp</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+  <nav class="navbar navbar-expand navbar-dark bg-primary" >
+          <a class="navbar-brand" href="#">myApp</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-        <div class="collapse navbar-collapse" id="navbarsExample02">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Modifier profil</a>
-            </li>
-          </ul>
-          <ul class="navbar-nav ">
-            <li class="nav-item">
-              <a class="nav-link" ng-click="logout()" href="#">Se déconnecter</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-<p></p>
-<h1>Bienvenue {{user.data.data.prenom}} {{user.data.data.nom}} !, <small>Votre solde de congé est : {{user.data.data.solde}} </small></h1>
-
-<div class="container">
-  <div class="card ">
-        <div class="card-header bg-info">
-          Demande
-        </div>
-        <div class="card-body ">
-          <h5 class="card-title">Demande de congé</h5>
-          <p class="card-text">Créer une demande de congé :</p>
-          <form name="myForm">
-        <div class="row col-md-7">
-          <div class="col">
-            <label class=" col-form-label">Date début</label>
-            <input required ng-model="dateD" class="form-control" type="date" >
-          </div>
-          <div class="col">
-            <label class=" col-form-label">Date fin</label>
-            <input required ng-model="dateF" class="form-control" type="date" >
+          <div class="collapse navbar-collapse" id="navbarsExample02">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
+              </li>
+            </ul>
+            <ul class="navbar-nav ">
+              <li class="nav-item active">
+                <a class="nav-link" ng-click="logout()" href="#">Se déconnecter</a>
+              </li>
+            </ul>
           </div>
         </nav>
   <p></p>
-  <h1>Bienvenue {{user.data.data.prenom}} {{user.data.data.nom}} !, <small>Votre solde de congé est : {{user.data.data.solde}} </small></h1>
-
-  <div class="container">
+  <h1>Bienvenue {{user.data.data.prenom}} {{user.data.data.nom}} ! <small>Votre solde de congé est : {{user.data.data.solde}} </small></h1>
+      <br>
+  <div class="container" >
     <div class="card ">
           <div class="card-header bg-info">
             Demande
@@ -53,7 +28,7 @@
           <div class="card-body ">
             <h5 class="card-title">Demande de congé</h5>
             <p class="card-text">Créer une demande de congé :</p>
-            <form name="myForm">
+            <form name="myForm" ng-submit="sendDemande()">
           <div class="row col-md-7">
             <div class="col">
               <label class=" col-form-label">Date début</label>
@@ -73,14 +48,68 @@
             </div>
 
           <p></p>
-            <button ng-disabled="myForm.$invalid || myForm.$pending" ng-click="sendDemande()"  class="btn btn-primary">Demande</button>
+            <button ng-disabled="myForm.$invalid || myForm.$pending" type="submit"  class="btn btn-primary">Demande</button>
             <p></p>
-              <div class="alert alert-success col-md-5" ng-if="showMsg" role="alert">
-                demande enregistré  :) !
+              <div class="alert alert-success col-md-5" ng-if="showMsgValid" role="alert">
+                Demande enregistré  :) !
               </div>
+              <div class="alert alert-danger col-md-5" ng-if="showMsgError" role="alert">
+                échec d'envoi !
+              </div>
+
           </form>
           </div>
         </div>
         <p></p>
-  </div>
+        <br>
+  <div class="card ">
+    <div class="card-header bg-info">
+      Vos Demandes
+    </div>
+    <div class="card-body ">
+      <h5 class="card-title">l’état des vos demandes : </h5>
+                <table class="table table-hover ">
+              <thead class="table-primary">
+                <tr>
+                  <th scope="col">Date début</th>
+                  <th scope="col">Date fin</th>
+                  <th scope="col">Motif d’absence</th>
+                  <th scope="col">Etat</th>
+                </tr>
+              </thead>
+              <tbody class="">
+                <tr ng-repeat="conge in conges" ng-click="sendModel(conge.id)" data-toggle="modal" data-target="#exampleModal">
+                  <td>{{conge.date_debut}}</td>
+                  <td>{{conge.date_fin}}</td>
+                  <td>{{conge.motifAb}}</td>
+                  <td>{{conge.etat}}</td>
+                </tr>
+              </tbody>
+            </table>
+              </div>
+            </div>
+   <p></p>
+   <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Demande informations</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label>Date debut : {{myModel[0].date_debut}}</label></br>
+          <label>Date fin : {{myModel[0].date_fin}}</label></br>
+          <label>Etat : {{myModel[0].etat}}</label></br>
+          <label>Motif de l’absence : {{myModel[0].motifAb}}</label></br>
+          <label ng-if="myModel[0].motifR">Motif de refus : {{myModel[0].motifR}}</label></br>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+ </div>
 </div>

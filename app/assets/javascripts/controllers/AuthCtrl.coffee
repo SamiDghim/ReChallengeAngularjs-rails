@@ -8,7 +8,7 @@
                 if res.data.data.role is "user"
                      $location.path '/UserHome'
                 else
-                     $location.path '/AdminHome'
+                    $location.path '/AdminHome'
             if !res.data.data?
                 $scope.isLogedIn=true;
         ,(error)->

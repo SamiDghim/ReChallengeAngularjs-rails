@@ -27,13 +27,14 @@ gem "bower-rails", "~> 0.11.0"
 gem 'coffee-rails'
 gem "active_model_serializers"
 gem 'angular_rails_csrf'
-
+gem 'will_paginate', '~> 3.1.0'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'better_errors', '~> 2.1', '>= 2.1.1'
 end
 
 group :development do

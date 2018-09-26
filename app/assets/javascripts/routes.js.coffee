@@ -10,6 +10,10 @@
   .when "/UserHome",
     controller:  'homeUserCtrl'
     templateUrl: 'views/homeUser.html'
+  
+  .when "/AdminHome",
+    controller:  'homeAdminCtrl'
+    templateUrl: 'views/homeAdmin.html'
 
   .when "/login",
     controller:  'authCtrl'
