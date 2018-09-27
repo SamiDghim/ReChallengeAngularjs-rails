@@ -1,17 +1,17 @@
 @app.controller 'homeUserCtrl', ($scope,Auth,$location,$http) ->
-    $scope.isLogedIn=false
-    $scope.showMsgValid=false
-    $scope.showMsgError=false
-    $scope.user={}
+    $scope.isLogedIn = false
+    $scope.showMsgValid = false
+    $scope.showMsgError = false
+    $scope.user = {}
     $http.get('/GetLoggedUserInfo').then (res) ->
         console.log 'res user json', res
         if res.data.data?
             $location.path '/login' if res.data.data.role is "admin"
-            $scope.isLogedIn=true
-            $scope.user=res
+            $scope.isLogedIn = true
+            $scope.user = res
             $http.get('/conge/GetUserConges/'+$scope.user.data.data.id).then (conges) ->
                  console.log 'conges user ', conges
-                 $scope.conges=conges.data.data
+                 $scope.conges = conges.data.data
             ,(error)->
                 console.log error,'Conges User not found'
         else
@@ -24,7 +24,7 @@
 
     $scope.logout = ->
         Auth.logout().then (oldUser) ->
-            $scope.isLogedIn=false
+            $scope.isLogedIn = false
             $location.path '/login'
         ,(error) ->
             console.log error
@@ -39,18 +39,16 @@
             $scope.showMsgValid = true
             $http.get('/conge/GetUserConges/'+$scope.user.data.data.id).then (conges) ->
                  console.log 'conges user ', conges
-                 $scope.conges=conges.data.data
+                 $scope.conges = conges.data.data
             ,(error)->
                 console.log error,'Conges User not found'
         ,(error) ->
             console.log error, 'can not save demand !.'
-            $scope.showMsgError=true
+            $scope.showMsgError = true
 
     $scope.sendModel = (id) ->
             $http.get('/conge/getUserCongeModel/'+id).then (model) ->
                  console.log 'model user ', model
-                 $scope.myModel=model.data.data
+                 $scope.myModel = model.data.data
             ,(error)->
                 console.log error,'model User not found'
-
-       
