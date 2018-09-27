@@ -1,12 +1,11 @@
-@app.controller 'homeAdminCtrl', ($scope,Auth,$location,$http,$window,$routeParams) ->
-    $scope.isLogedIn = false
+@app.controller 'homeAdminCtrl', ($scope,Auth,$location,$http,$window) ->
     $scope.showMsgValid = false
     $scope.showMsgError = false
 
     GetAllDemandsNonT = ->
         $http.get('/conge/GetAllDemandsNonT').then (res) ->
                  console.log 'DemandsNonT ', res
-                 $scope.demandesNonT=res.data.data
+                 $scope.demandesNonT = res.data.data
                  $scope.pagesDNT = (num for num in [1..res.data.total])
             ,(error)->
                 console.log error,'Users not found'
@@ -14,7 +13,7 @@
     GetAllDemandsT = ->
         $http.get('/conge/GetAllDemandsT').then (res) ->
                  console.log 'DemandsT ', res
-                 $scope.demandesT=res.data.data
+                 $scope.demandesT = res.data.data
                  $scope.pagesDT = (num for num in [1..res.data.total])
             ,(error)->
                 console.log error,'Users not found'
@@ -23,20 +22,16 @@
         console.log 'res user json', res
         if res.data.data?
             $location.path '/login' if res.data.data.role is "user"
-            $scope.user=res.data.data
+            $scope.user = res.data.data
             $http.get('/conge/GetAllUsers').then (users) ->
                  console.log users , 'Users for Admin'
-                 $scope.users=users.data.data
+                 $scope.users = users.data.data
                  $scope.pages = (num for num in [1..users.data.total])
                  GetAllDemandsNonT()
                  GetAllDemandsT()
             ,(error)->
                 console.log error,'Users not found'
-<<<<<<< HEAD
-            
-=======
 
->>>>>>> FEATURE-login-and-inscription
         else
             $location.path '/login'
             return
@@ -51,7 +46,7 @@
         console.log $scope.motCle,' MOTCLE'
         $http.get('/conge/search/'+$scope.motCle).then (res) ->
                  console.log 'search ', res
-                 $scope.demandesNonT=res.data.data
+                 $scope.demandesNonT = res.data.data
             ,(error)->
                 console.log error,'Search error'
 
@@ -84,8 +79,8 @@
             b=new Date(df)
             utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate())
             utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate())
-            res=Math.floor((utc2 - utc1) / _MS_PER_DAY)
-            resF=solde-res
+            res = Math.floor((utc2 - utc1) / _MS_PER_DAY)
+            resF = solde-res
             Indata = {id : id,etat :'Accepté',user_id : user_id,solde : resF}
             headers = {'Content-Type': 'application/json'}
             $http.post('/conge/AcceptConge/',Indata,headers).then (response) ->
@@ -98,7 +93,7 @@
 
     $scope.getModelInfo = (id) ->
             $http.get('/conge/getUserCongeModel/'+id).then (model) ->
-                 $scope.myModel=model.data.data
+                 $scope.myModel = model.data.data
             ,(error)->
                 console.log error,'model not found'
 
@@ -112,8 +107,4 @@
 
     $scope.reloadDTPage = (p) ->
             $location.url('/AdminHome?DTPage='+p)
-<<<<<<< HEAD
             $window.location.reload()
-=======
-            $window.location.reload()
->>>>>>> FEATURE-login-and-inscription
