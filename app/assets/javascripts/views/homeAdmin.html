@@ -1,11 +1,11 @@
-  
+
   <div >
     <nav class="navbar navbar-expand navbar-dark bg-primary" >
             <a class="navbar-brand" href="#">ADMIN</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-      
+
             <div class="collapse navbar-collapse" id="navbarsExample02">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
@@ -20,10 +20,10 @@
             </div>
           </nav>
     <p></p>
-    <h1>Bienvenue {{user.prenom}} {{user.nom}} !</h1> 
+    <h1>Bienvenue {{user.prenom}} {{user.nom}} !</h1>
         <br>
     <div class="container" >
-      
+
         <h2>Liste des utilisateurs</h2>
 
       <table class="table table-hover">
@@ -46,7 +46,7 @@
           </tr>
         </tbody>
       </table>
-      <nav aria-label="...">
+      <nav aria-label="..." ng-if="pages.length>1">
         <ul class="pagination pagination-sm ">
           <li class="page-item " ng-repeat="page in pages" >
             <a class="page-link " ng-click="reloadUserPage(page)" href="#">{{page}}</a>
@@ -77,12 +77,12 @@
             <td>{{demandeNonT.date_debut}}</td>
             <td>{{demandeNonT.date_fin}}</td>
             <td>{{demandeNonT.motifAb}}</td>
-            <td><a href="#" class="badge badge-success" ng-click="sendAccept($event,demandeNonT.id,demandeNonT.user.id,demandeNonT.date_debut,demandeNonT.date_fin,demandeNonT.user.solde)">Valider</a> - 
+            <td><a href="#" class="badge badge-success" ng-click="sendAccept($event,demandeNonT.id,demandeNonT.user.id,demandeNonT.date_debut,demandeNonT.date_fin,demandeNonT.user.solde)">Valider</a> -
             <a href="#" class="badge badge-danger" ng-click="saveIdCongeDemand(demandeNonT.id)" data-toggle="modal" data-target="#exampleModal" >Rejeter</a></td>
           </tr>
         </tbody>
       </table>
-      <nav aria-label="...">
+      <nav aria-label="..." ng-if="pagesDNT.length>1">
           <ul class="pagination pagination-sm ">
             <li class="page-item " ng-repeat="page in pagesDNT" >
               <a class="page-link " ng-click="reloadDNTPage(page)" href="#">{{page}}</a>
@@ -118,7 +118,7 @@
             demande enregistrée  :) !
       </div>
       <div class="alert alert-success col-md-5" ng-if="showMsgError" role="alert">
-            échec d'envoi ! 
+            échec d'envoi !
       </div>
       <h2>Liste de demandes traitée</h2>
       <table class="table table-hover">
@@ -141,7 +141,7 @@
           </tr>
         </tbody>
       </table>
-      <nav aria-label="...">
+      <nav aria-label="..." ng-if="pagesDT.length>1">
           <ul class="pagination pagination-sm ">
             <li class="page-item " ng-repeat="page in pagesDT" >
               <a class="page-link " ng-click="reloadDTPage(page)" href="#">{{page}}</a>
