@@ -1,5 +1,4 @@
 @app.controller 'homeAdminCtrl', ($scope,Auth,$location,$http,$window) ->
-    $scope.isLogedIn = false
     $scope.showMsgValid = false
     $scope.showMsgError = false
 
