@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
+  devise_for :users
 
   namespace 'conge' do
       resources :conge
       post '/saveConge', to: 'conge#create'
       get '/GetUserConges/(/:id)', to: 'conge#getUserConges'
       get '/getUserCongeModel/(/:id)', to: 'conge#getUserCongeModel'
-<<<<<<< HEAD
       get '/GetAllUsers', to: 'conge#GetAllUsers'
       get '/GetAllDemandsNonT', to: 'conge#GetAllDemandesNonT'
       get '/GetAllDemandsT', to: 'conge#GetAllDemandsT'
@@ -14,16 +14,6 @@ Rails.application.routes.draw do
       post '/AcceptConge/(/:id)', to: 'conge#AcceptConge'
   end
 
-
-=======
-      
-  end
-
-
-
->>>>>>> FEATURE-user-page
-  devise_for :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root "application#index"
    get '/UserHome', to: 'application#index'
    get '/AdminHome', to: 'application#index'

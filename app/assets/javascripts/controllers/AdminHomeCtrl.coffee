@@ -1,4 +1,4 @@
-@app.controller 'homeAdminCtrl', ($scope,Auth,$location,$http,$window,$routeParams) ->
+@app.controller 'homeAdminCtrl', ($scope,Auth,$location,$http,$window) ->
     $scope.isLogedIn = false
     $scope.showMsgValid = false
     $scope.showMsgError = false
@@ -32,11 +32,7 @@
                  GetAllDemandsT()
             ,(error)->
                 console.log error,'Users not found'
-<<<<<<< HEAD
 
-=======
-
->>>>>>> FEATURE-login-and-inscription
         else
             $location.path '/login'
             return
