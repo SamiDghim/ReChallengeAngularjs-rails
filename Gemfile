@@ -35,6 +35,7 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   gem 'better_errors', '~> 2.1', '>= 2.1.1'
+  gem 'rspec-rails', '~> 3.8'
 end
 
 group :development do

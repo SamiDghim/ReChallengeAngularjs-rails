@@ -52,7 +52,6 @@
 
     $scope.logout = ->
         Auth.logout().then (oldUser) ->
-            $scope.isLogedIn = false
             $location.path '/login'
         ,(error) ->
             console.log error
