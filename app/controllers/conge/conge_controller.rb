@@ -39,10 +39,11 @@ module Conge
 
         # get '/search/(/:motCle)'
         def searchDemandesNonT
+            p = params[:p]
             congeDemandesNonT = CongeDemande.includes(:user).where("(users.nom LIKE ? OR users.prenom LIKE ?)
             AND etat= 'pas encore traité' ","%#{params[:motCle]}%","%#{params[:motCle]}%")
             .references(:users).paginate(page: p, per_page:2).order(created_at: :desc)
-            render json: {status: 'SUCCESS',message: 'Loaded Congés demande T',data: congeDemandesNonT},:include=> :user, status: :ok
+            render json: {status: 'SUCCESS',message: 'Loaded Congés demande T',data: congeDemandesNonT,total:(congeDemandesNonT.count+1)/2},:include=> :user, status: :ok
         end
 
         # post '/RejectConge/(/:id)'

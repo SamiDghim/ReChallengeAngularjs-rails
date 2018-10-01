@@ -4,6 +4,7 @@
     $scope.ActivePageUser=1
     $scope.ActivePageDNT=1
     $scope.ActivePageDT=1
+
     GetAllDemandsNonT = ->
         $http.get('/conge/GetAllDemandsNonT').then (res) ->
                  console.log 'DemandsNonT ', res
@@ -49,9 +50,11 @@
     $scope.find = ->
         $scope.motCle = "" if !$scope.motCle?
         console.log $scope.motCle, 'MOTCLE'
-        $http.get('/conge/search/'+$scope.motCle).then (res) ->
+        Indata = {p : $scope.ActivePageDNT }
+        $http.get('/conge/search/'+$scope.motCle,Indata).then (res) ->
                  console.log 'search ', res
                  $scope.demandesNonT = res.data.data
+                 $scope.pagesDNT = (num for num in [1..res.data.total])
             ,(error)->
                 console.log error,'Search error'
 
