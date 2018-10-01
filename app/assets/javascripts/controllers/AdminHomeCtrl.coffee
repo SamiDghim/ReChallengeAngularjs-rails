@@ -18,19 +18,22 @@
             ,(error)->
                 console.log error,'Users not found'
 
+    GetAllUsers = ->
+        $http.get('/GetAllUsers').then (users) ->
+             console.log users , 'Users for Admin'
+             $scope.users = users.data.data
+             $scope.pages = (num for num in [1..users.data.total])
+        ,(error)->
+            console.log error,'Users not found'
+
     $http.get('/GetLoggedUserInfo').then (res) ->
         console.log 'res user json', res
         if res.data.data?
             $location.path '/login' if res.data.data.role is "user"
             $scope.user = res.data.data
-            $http.get('/conge/GetAllUsers').then (users) ->
-                 console.log users , 'Users for Admin'
-                 $scope.users = users.data.data
-                 $scope.pages = (num for num in [1..users.data.total])
-                 GetAllDemandsNonT()
-                 GetAllDemandsT()
-            ,(error)->
-                console.log error,'Users not found'
+            GetAllUsers()
+            GetAllDemandsNonT()
+            GetAllDemandsT()
 
         else
             $location.path '/login'
@@ -42,8 +45,8 @@
 
 
     $scope.find = ->
-        $scope.motCle = "" if $scope.motCle is "undefiend"
-        console.log $scope.motCle,' MOTCLE'
+        $scope.motCle = "" if !$scope.motCle?
+        console.log $scope.motCle, 'MOTCLE'
         $http.get('/conge/search/'+$scope.motCle).then (res) ->
                  console.log 'search ', res
                  $scope.demandesNonT = res.data.data
@@ -67,6 +70,7 @@
                 $scope.showMsgValid = true
                 $scope.demandesNonT = response.data.data
                 GetAllDemandsT()
+                GetAllUsers()
             ,(error) ->
                 console.log error , 'Error reject demand'
                 $scope.showMsgError = true
@@ -86,6 +90,7 @@
                 $scope.showMsgValid = true
                 $scope.demandesNonT = response.data.data
                 GetAllDemandsT()
+                GetAllUsers()
             ,(error) ->
                 console.log error , 'Error reject demand'
                 $scope.showMsgError = true
@@ -97,13 +102,19 @@
                 console.log error,'model not found'
 
     $scope.reloadUserPage = (p) ->
-            $location.url('/AdminHome?page='+p)
-            $window.location.reload()
+            $http.get('/GetAllUsers/'+p).then (res) ->
+                 $scope.users = res.data.data
+            ,(error)->
+                console.log error,'page users not found'
 
     $scope.reloadDNTPage = (p) ->
-            $location.url('/AdminHome?DNTPage='+p)
-            $window.location.reload()
+            $http.get('conge/GetAllDemandsNonT/'+p).then (res) ->
+                 $scope.demandesNonT = res.data.data
+            ,(error)->
+                console.log error,'page demandsNonT not found'
 
     $scope.reloadDTPage = (p) ->
-            $location.url('/AdminHome?DTPage='+p)
-            $window.location.reload()
+            $http.get('conge/GetAllDemandsT/'+p).then (res) ->
+                 $scope.demandesT = res.data.data
+            ,(error)->
+                console.log error,'page demandsNonT not found'

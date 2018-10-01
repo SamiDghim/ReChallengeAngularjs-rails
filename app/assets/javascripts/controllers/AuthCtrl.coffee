@@ -1,6 +1,6 @@
 @app.controller 'authCtrl', ($scope,Auth,$location,$http) ->
-  $scope.isLogedIn = false;
-
+  $scope.isLogedIn = false
+  $scope.showLoginError = false
   $http.get('/GetLoggedUserInfo').then (res) ->
     console.log 'res user json', res
     $scope.user = res
@@ -11,6 +11,7 @@
         $location.path '/AdminHome'
     if !res.data.data?
       $scope.isLogedIn = true
+
    ,(error)->
       console.log error,' User is not logged in'
       $scope.isLogedIn = true
@@ -26,6 +27,8 @@
           else
             $location.path '/AdminHome'
       ,(e) ->
+        $scope.showLoginError = true
         console.log e,' User is not logged in'
     ,(error) ->
+      $scope.showLoginError = true
       console.log error
