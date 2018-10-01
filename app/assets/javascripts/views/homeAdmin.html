@@ -46,7 +46,7 @@
   </table>
   <nav aria-label="..." ng-if="pages.length>1">
     <ul class="pagination pagination-sm ">
-      <li class="page-item " ng-repeat="page in pages">
+      <li class="page-item " ng-class="{active : ActivePageUser===page}" ng-repeat="page in pages">
         <a class="page-link " ng-click="reloadUserPage(page)" href="#">{{page}}</a>
       </li>
     </ul>
@@ -82,7 +82,7 @@
   </table>
   <nav aria-label="..." ng-if="pagesDNT.length>1">
     <ul class="pagination pagination-sm ">
-      <li class="page-item " ng-repeat="page in pagesDNT">
+      <li class="page-item " ng-class="{active : ActivePageDNT===page}" ng-repeat="page in pagesDNT">
         <a class="page-link " ng-click="reloadDNTPage(page)" href="#">{{page}}</a>
       </li>
     </ul>
@@ -141,7 +141,7 @@
   </table>
   <nav aria-label="..." ng-if="pagesDT.length>1">
     <ul class="pagination pagination-sm ">
-      <li class="page-item " ng-repeat="page in pagesDT">
+      <li class="page-item " ng-class="{active : ActivePageDT===page}" ng-repeat="page in pagesDT">
         <a class="page-link " ng-click="reloadDTPage(page)" href="#">{{page}}</a>
       </li>
     </ul>

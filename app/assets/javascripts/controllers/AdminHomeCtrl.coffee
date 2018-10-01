@@ -1,7 +1,9 @@
 @app.controller 'homeAdminCtrl', ($scope,Auth,$location,$http,$window) ->
     $scope.showMsgValid = false
     $scope.showMsgError = false
-
+    $scope.ActivePageUser=1
+    $scope.ActivePageDNT=1
+    $scope.ActivePageDT=1
     GetAllDemandsNonT = ->
         $http.get('/conge/GetAllDemandsNonT').then (res) ->
                  console.log 'DemandsNonT ', res
@@ -102,18 +104,21 @@
                 console.log error,'model not found'
 
     $scope.reloadUserPage = (p) ->
+            $scope.ActivePageUser=p
             $http.get('/GetAllUsers/'+p).then (res) ->
                  $scope.users = res.data.data
             ,(error)->
                 console.log error,'page users not found'
 
     $scope.reloadDNTPage = (p) ->
+            $scope.ActivePageDNT=p
             $http.get('conge/GetAllDemandsNonT/'+p).then (res) ->
                  $scope.demandesNonT = res.data.data
             ,(error)->
                 console.log error,'page demandsNonT not found'
 
     $scope.reloadDTPage = (p) ->
+            $scope.ActivePageDT=p
             $http.get('conge/GetAllDemandsT/'+p).then (res) ->
                  $scope.demandesT = res.data.data
             ,(error)->
