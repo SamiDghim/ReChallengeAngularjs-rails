@@ -13,6 +13,7 @@
 *= require bootstrap/dist/css/bootstrap
  *= require_tree .
  *= require_self
+ *= require font-awesome
  */
 .mt-6{
     margin-top: 10rem !important;

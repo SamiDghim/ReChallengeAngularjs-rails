@@ -1,5 +1,6 @@
 module Conge
     class CongeController < ApplicationController
+        # post '/saveConge'
         def create
             conge = CongeDemande.new(conge_params);
             if conge.save
@@ -9,38 +10,42 @@ module Conge
             end
         end
 
+        # get '/GetUserConges/(/:id)
         def getUserConges
             conge = CongeDemande.where(user_id: params[:id]).order(created_at: :desc)
             render json: {status: 'SUCCESS',message: 'Loaded Congés demande',data: conge,total:(conge.count+1)/2},status: :ok
         end
 
+        # get '/getUserCongeModel/(/:id)
         def getUserCongeModel
             conge = CongeDemande.where(id: params[:id])
             render json: {status: 'SUCCESS',message: 'Loaded Congé demande for model',data: conge},status: :ok
         end
 
-        def GetAllUsers
-            users = User.paginate(page: $page, per_page:2).order(created_at: :desc)
-            render json: {status: 'SUCCESS',message: 'Loaded users for admin',data: users,total:(users.count+1)/2},status: :ok
-        end
 
+        # get '/GetAllDemandsNonT'
         def GetAllDemandesNonT
-            congeDemandesNonT=CongeDemande.where(etat:'pas encore traité').paginate(page: $DNTPage, per_page:2).order(created_at: :desc)
+            p = params[:p]
+            congeDemandesNonT=CongeDemande.where(etat:'pas encore traité').paginate(page: p, per_page:2).order(created_at: :desc)
             render json: {status: 'SUCCESS',message: 'Loaded Congés demande T',data: congeDemandesNonT, total:(congeDemandesNonT.count+1)/2},:include=> :user, status: :ok
         end
 
+        # get '/GetAllDemandsT'
         def GetAllDemandsT
-            conge = CongeDemande.where(etat:'Réfusé').or(CongeDemande.where(etat:'Accepté')).paginate(page: $DTPage, per_page:2).order(created_at: :desc)
+            p = params[:p]
+            conge = CongeDemande.where(etat:'Réfusé').or(CongeDemande.where(etat:'Accepté')).paginate(page: p, per_page:2).order(created_at: :desc)
             render json: {status: 'SUCCESS',message: 'Loaded Congés demande NT',data: conge,total:(conge.count+1)/2},:include=> :user, status: :ok
         end
 
+        # get '/search/(/:motCle)'
         def searchDemandesNonT
             congeDemandesNonT = CongeDemande.includes(:user).where("(users.nom LIKE ? OR users.prenom LIKE ?)
             AND etat= 'pas encore traité' ","%#{params[:motCle]}%","%#{params[:motCle]}%")
-            .references(:users).order(created_at: :desc)
+            .references(:users).paginate(page: p, per_page:2).order(created_at: :desc)
             render json: {status: 'SUCCESS',message: 'Loaded Congés demande T',data: congeDemandesNonT},:include=> :user, status: :ok
         end
 
+        # post '/RejectConge/(/:id)'
         def RejectConge
             conge = CongeDemande.find(params[:id]);
             if conge.update_attributes(conge_params_Reject)
@@ -51,9 +56,10 @@ module Conge
             end
         end
 
+        # post '/AcceptConge/(/:id)'
         def AcceptConge
-            conge = CongeDemande.find(params[:id]);
-            user = User.find(params[:user_id]);
+            conge = CongeDemande.find(params[:id])
+            user = User.find(params[:user_id])
             if conge.update_attributes(conge_params_Accept)
                 if user.update_attributes(user_params_AcceptConge)
                 conges = CongeDemande.where(etat:'pas encore traité').paginate(page: $DNTPage, per_page:2).order(created_at: :desc)
