@@ -72,6 +72,7 @@
             Indata = {motifR : $scope.motifR, etat :'Réfusé', id : $scope.idCongeDemand }
             headers = {'Content-Type': 'application/json'}
             $http.post('/conge/RejectConge/',Indata,headers).then (response) ->
+                angular.element('#exampleModal').modal('hide')
                 $scope.showMsgValid = true
                 $scope.demandesNonT = response.data.data
                 GetAllDemandsT()

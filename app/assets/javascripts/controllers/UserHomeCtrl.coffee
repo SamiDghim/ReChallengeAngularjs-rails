@@ -31,7 +31,11 @@
       console.log error
 
   $scope.sendDemande = ->
-    Indata = {'user_id':$scope.user.id,'date_debut':$scope.dateD,'date_fin':$scope.dateF, 'motifAb':$scope.motifAb}
+    d1 = new Date($scope.dateF)
+    d1.setMinutes(d1.getMinutes() + 60)
+    d2 = new Date($scope.dateD)
+    d2.setMinutes(d2.getMinutes() + 60)
+    Indata = {'user_id':$scope.user.id,'date_debut':d2,'date_fin':d1, 'motifAb':$scope.motifAb}
     headers = {'Content-Type': 'application/json'}
     $http.post('/conge/saveConge',Indata,headers).then (response) ->
       $scope.dateF = ''
