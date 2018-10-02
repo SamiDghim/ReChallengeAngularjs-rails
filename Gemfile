@@ -29,6 +29,7 @@ gem "active_model_serializers"
 gem 'angular_rails_csrf'
 gem 'will_paginate', '~> 3.1.0'
 gem "font-awesome-rails"
+gem 'momentjs-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

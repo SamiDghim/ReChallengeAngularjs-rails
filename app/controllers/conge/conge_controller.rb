@@ -12,8 +12,8 @@ module Conge
 
         # get '/GetUserConges/(/:id)
         def getUserConges
-            conge = CongeDemande.where(user_id: params[:id]).order(created_at: :desc)
-            render json: {status: 'SUCCESS',message: 'Loaded Congés demande',data: conge,total:(conge.count+1)/2},status: :ok
+            conge = CongeDemande.where(user_id: params[:id]).order('updated_at DESC')
+            render json: {status: 'SUCCESS',message: 'Loaded Congés demande',data: conge},status: :ok
         end
 
         # get '/getUserCongeModel/(/:id)
@@ -26,15 +26,15 @@ module Conge
         # get '/GetAllDemandsNonT'
         def GetAllDemandesNonT
             p = params[:p]
-            congeDemandesNonT=CongeDemande.where(etat:'pas encore traité').paginate(page: p, per_page:2).order(created_at: :desc)
-            render json: {status: 'SUCCESS',message: 'Loaded Congés demande T',data: congeDemandesNonT, total:(congeDemandesNonT.count+1)/2},:include=> :user, status: :ok
+            congeDemandesNonT=CongeDemande.where(etat:'pas encore traité').paginate(page: p, per_page:2).order('updated_at DESC')
+            render json: {status: 'SUCCESS',message: 'Loaded Congés demande T',data: congeDemandesNonT, total:(congeDemandesNonT.total_pages)},:include=> :user, status: :ok
         end
 
         # get '/GetAllDemandsT'
         def GetAllDemandsT
             p = params[:p]
-            conge = CongeDemande.where(etat:'Réfusé').or(CongeDemande.where(etat:'Accepté')).paginate(page: p, per_page:2).order(created_at: :desc)
-            render json: {status: 'SUCCESS',message: 'Loaded Congés demande NT',data: conge,total:(conge.count+1)/2},:include=> :user, status: :ok
+            conge = CongeDemande.where(etat:'Réfusé').or(CongeDemande.where(etat:'Accepté')).paginate(page: p, per_page:2).order('updated_at DESC')
+            render json: {status: 'SUCCESS',message: 'Loaded Congés demande NT',data: conge,total:(conge.total_pages)},:include=> :user, status: :ok
         end
 
         # get '/search/(/:motCle)'
@@ -42,15 +42,16 @@ module Conge
             p = params[:p]
             congeDemandesNonT = CongeDemande.includes(:user).where("(users.nom LIKE ? OR users.prenom LIKE ?)
             AND etat= 'pas encore traité' ","%#{params[:motCle]}%","%#{params[:motCle]}%")
-            .references(:users).paginate(page: p, per_page:2).order(created_at: :desc)
-            render json: {status: 'SUCCESS',message: 'Loaded Congés demande T',data: congeDemandesNonT,total:(congeDemandesNonT.count+1)/2},:include=> :user, status: :ok
+            .references(:users).paginate(page: p, per_page:2).order('updated_at DESC')
+            render json: {status: 'SUCCESS',message: 'Loaded Congés demande T',data: congeDemandesNonT,total:(congeDemandesNonT.total_pages)},:include=> :user, status: :ok
         end
 
         # post '/RejectConge/(/:id)'
         def RejectConge
+            p = params[:p]
             conge = CongeDemande.find(params[:id]);
             if conge.update_attributes(conge_params_Reject)
-                conges=CongeDemande.where(etat:'pas encore traité').paginate(page: $DNTPage, per_page:2).order(created_at: :desc)
+                conges=CongeDemande.where(etat:'pas encore traité').paginate(page: p, per_page:2).order('updated_at DESC')
              render json: {status: 'SUCCESS',message: 'reject conge demand success',data: conges},:include=> :user,status: :ok
             else
                 render json: {status: 'ERROR',message: 'Demand reject not updated ',data: conge.errors},status: :unprocessable_entity
@@ -59,11 +60,12 @@ module Conge
 
         # post '/AcceptConge/(/:id)'
         def AcceptConge
+            p = params[:p]
             conge = CongeDemande.find(params[:id])
             user = User.find(params[:user_id])
             if conge.update_attributes(conge_params_Accept)
                 if user.update_attributes(user_params_AcceptConge)
-                conges = CongeDemande.where(etat:'pas encore traité').paginate(page: $DNTPage, per_page:2).order(created_at: :desc)
+                conges = CongeDemande.where(etat:'pas encore traité').paginate(page: p, per_page:2).order('updated_at DESC')
              render json: {status: 'SUCCESS',message: 'Updated demand accept',data: conges},:include=> :user,status: :ok
                 end
             else

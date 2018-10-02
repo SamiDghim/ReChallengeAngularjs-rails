@@ -12,6 +12,6 @@
     Auth.register( $scope.user ).then ->
       $location.path '/login'
     ,(error)->
-      $scope.showPasswordError = true
+      $scope.showPasswordError = false
       $scope.showEmailError = true if error.data.errors.email[0] is "has already been taken"
       console.log error,'register failed !'

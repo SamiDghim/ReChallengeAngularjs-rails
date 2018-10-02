@@ -1,31 +1,19 @@
-@app.controller 'homeUserCtrl', ($scope,Auth,$location,$http) ->
-  $scope.isLogedIn = false
+@app.controller 'homeUserCtrl', ($scope,Auth,$location,$http,userService) ->
   $scope.showMsgValid = false
   $scope.showMsgError = false
-  $scope.user = {}
 
-  $http.get('/GetLoggedUserInfo').then (res) ->
-    console.log 'res user json', res
-    if res.data.data?
-      $location.path '/login' if res.data.data.role is "admin"
-      $scope.isLogedIn = true
-      $scope.user = res.data.data
-      $http.get('/conge/GetUserConges/'+$scope.user.id).then (conges) ->
-        console.log 'conges user ', conges
-        $scope.conges = conges.data.data
-      ,(error)->
-        console.log error,'Conges User not found'
-    else
-      $location.path '/login'
-      return
-  ,(error)->
-    console.log error,' User is not logged in'
-    $location.path '/login'
-    return
+  userService.getLoggedUserInfo().then (res)->
+    $scope.user =  res
+    userService.getUserConges($scope.user.id).then (res) ->
+      $scope.conges = res
+    .catch (e) ->
+      console.log 'reject conges for user' ,e
+  .catch (e) ->
+    console.log 'reject logged user' ,e
+
 
   $scope.logout = ->
     Auth.logout().then (oldUser) ->
-      $scope.isLogedIn = false
       $location.path '/login'
     ,(error) ->
       console.log error
@@ -35,20 +23,17 @@
     d1.setMinutes(d1.getMinutes() + 60)
     d2 = new Date($scope.dateD)
     d2.setMinutes(d2.getMinutes() + 60)
-    Indata = {'user_id':$scope.user.id,'date_debut':d2,'date_fin':d1, 'motifAb':$scope.motifAb}
-    headers = {'Content-Type': 'application/json'}
-    $http.post('/conge/saveConge',Indata,headers).then (response) ->
+    userService.sendDemande($scope.user.id,d1,d2,$scope.motifAb).then (res)->
       $scope.dateF = ''
       $scope.dateD = ''
       $scope.motifAb = ''
       $scope.showMsgValid = true
-      $http.get('/conge/GetUserConges/'+$scope.user.id).then (conges) ->
-        console.log 'conges user ', conges
-        $scope.conges = conges.data.data
-      ,(error)->
-        console.log error,'Conges User not found'
+      userService.getUserConges($scope.user.id).then (resp) ->
+        $scope.conges = resp
+      .catch (e) ->
+        console.log 'reject conges for user' ,e
     ,(error) ->
-      console.log error, 'can not save demand !.'
+      console.log 'error send demand',error
       $scope.showMsgError = true
 
   $scope.sendModel = (id) ->

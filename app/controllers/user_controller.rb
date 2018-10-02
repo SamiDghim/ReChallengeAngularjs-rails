@@ -7,7 +7,7 @@ class UserController < ApplicationController
     # get '/GetAllUsers'
     def GetAllUsers
         p = params[:p]
-        users = User.paginate(page: p, per_page:2).order(created_at: :desc)
-        render json: {status: 'SUCCESS',message: 'Loaded users for admin',data: users,total:(users.count+1)/2},status: :ok
+        users = User.paginate(page: p, per_page:2).order('updated_at DESC')
+        render json: {status: 'SUCCESS',message: 'Loaded users for admin',data: users,total:(users.total_pages)},status: :ok
     end
 end

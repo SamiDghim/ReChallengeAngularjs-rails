@@ -18,9 +18,10 @@
   </div>
 </nav>
 <p></p>
-<h1>Bienvenue {{user.nom}} {{user.prenom}} ! <small>Votre solde de congé est : {{user.solde}} </small></h1>
+<ng-Welcome></ng-Welcome>
 <br>
 <div class="container">
+  <hr>
   <div class="card ">
     <div class="card-header bg-info">
       Demande
@@ -61,55 +62,7 @@
     </div>
   </div>
   <p></p>
+  <hr>
   <br>
-  <div class="card ">
-    <div class="card-header bg-info">
-      Vos Demandes
-    </div>
-    <div class="card-body ">
-      <h5 class="card-title">l’état des vos demandes : </h5>
-      <table class="table table-hover ">
-        <thead class="table-primary">
-          <tr>
-            <th scope="col">Date début</th>
-            <th scope="col">Date fin</th>
-            <th scope="col">Motif d’absence</th>
-            <th scope="col">Etat</th>
-          </tr>
-        </thead>
-        <tbody class="">
-          <tr ng-repeat="conge in conges" ng-click="sendModel(conge.id)" data-toggle="modal" data-target="#exampleModal">
-            <td>{{conge.date_debut}}</td>
-            <td>{{conge.date_fin}}</td>
-            <td>{{conge.motifAb}}</td>
-            <td>{{conge.etat}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <p></p>
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Demande informations</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <label>Date debut : {{myModel[0].date_debut}}</label></br>
-          <label>Date fin : {{myModel[0].date_fin}}</label></br>
-          <label>Etat : {{myModel[0].etat}}</label></br>
-          <label>Motif de l’absence : {{myModel[0].motifAb}}</label></br>
-          <label ng-if="myModel[0].motifR">Motif de refus : {{myModel[0].motifR}}</label></br>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <ng-user-table-demands></ng-user-table-demands>
 </div>
