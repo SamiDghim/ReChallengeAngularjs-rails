@@ -53,36 +53,49 @@
 
     $scope.sendReject = ->
             Indata = {motifR : $scope.motifR, etat :'Réfusé', id : $scope.idCongeDemand }
-            headers = {'Content-Type': 'application/json'}
-            $http.post('/conge/RejectConge/',Indata,headers).then (response) ->
-                angular.element('#exampleModal').modal('hide')
-                $scope.showMsgValid = true
-                $scope.demandesNonT = response.data.data
-                GetAllDemandsT()
-                GetAllUsers()
+            adminService.sendReject(Indata).then (res) ->
+              angular.element('#exampleModal').modal('hide')
+              $scope.showMsgValid = true
+              $scope.demandesNonT = res.data
+              adminService.getAllUsers().then (res) ->
+                $scope.users = res.data
+                $scope.pages = (num for num in [1..res.total])
+              ,(error) ->
+                console.log 'error users not found !' ,error
+
+              adminService.getAllDemandsT().then (res) ->
+                $scope.demandesT = res.data
+                $scope.pagesDT = (num for num in [1..res.total])
+              ,(error) ->
+                console.log 'error demandsT not found !' ,error
             ,(error) ->
                 console.log error , 'Error reject demand'
                 $scope.showMsgError = true
 
     $scope.sendAccept = (event,id,user_id,db,df,solde) ->
             event.preventDefault()
-            _MS_PER_DAY = 1000 * 60 * 60 * 24
-            a=new Date(db)
-            b=new Date(df)
-            utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate())
-            utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate())
-            res = Math.floor((utc2 - utc1) / _MS_PER_DAY)
-            resF = solde-res
-            Indata = {id : id,etat :'Accepté',user_id : user_id,solde : resF}
-            headers = {'Content-Type': 'application/json'}
-            $http.post('/conge/AcceptConge/',Indata,headers).then (response) ->
-                $scope.showMsgValid = true
-                $scope.demandesNonT = response.data.data
-                GetAllDemandsT()
-                GetAllUsers()
+            adminService.sendAccept(id,user_id,db,df,solde).then (res) ->
+              $scope.showMsgValid = true
+              $scope.demandesNonT = res.data
+              $scope.pagesDNT = (num for num in [1..res.total])
+              adminService.getAllUsers().then (res) ->
+                $scope.users = res.data
+                $scope.pages = (num for num in [1..res.total])
+              ,(error) ->
+                console.log 'error users not found !' ,error
+
+              adminService.getAllDemandsT().then (res) ->
+                $scope.demandesT = res.data
+                $scope.pagesDT = (num for num in [1..res.total])
+              ,(error) ->
+                console.log 'error demandsT not found !' ,error
             ,(error) ->
                 console.log error , 'Error reject demand'
                 $scope.showMsgError = true
+            ,(error) ->
+              console.log error , 'Error reject demand'
+              $scope.showMsgError = true
+
 
     $scope.getModelInfo = (id) ->
             $http.get('/conge/getUserCongeModel/'+id).then (model) ->
@@ -98,6 +111,16 @@
                 console.log error,'page users not found'
 
     $scope.reloadDNTPage = (p) ->
+            if $scope.motCle?
+              console.log $scope.motCle, 'MOTCLE PAGE'
+              Indata = {p : $scope.ActivePageDNT }
+              $http.get('/conge/search/'+$scope.motCle,Indata).then (res) ->
+                console.log 'search ', res
+                $scope.demandesNonT = res.data.data
+                $scope.pagesDNT = (num for num in [1..res.data.total])
+              ,(error)->
+                console.log error,'Search error'
+            else
             $scope.ActivePageDNT=p
             $http.get('conge/GetAllDemandsNonT/'+p).then (res) ->
                  $scope.demandesNonT = res.data.data

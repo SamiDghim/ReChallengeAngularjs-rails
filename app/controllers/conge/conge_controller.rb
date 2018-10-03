@@ -42,8 +42,8 @@ module Conge
             p = params[:p]
             congeDemandesNonT = CongeDemande.includes(:user).where("(users.nom LIKE ? OR users.prenom LIKE ?)
             AND etat= 'pas encore traité' ","%#{params[:motCle]}%","%#{params[:motCle]}%")
-            .references(:users).paginate(page: p, per_page:2)
-            render json: {status: 'SUCCESS',message: 'Loaded Congés demande T',data: congeDemandesNonT,total:(congeDemandesNonT.total_pages)},:include=> :user, status: :ok
+            .references(:users).paginate(page: p, per_page:2).order(created_at: :desc)
+            render json: {status: 'SUCCESS',message: 'Loaded Congés demande T',data: congeDemandesNonT,total:congeDemandesNonT.total_pages},:include=> :user, status: :ok
         end
 
         # post '/RejectConge/(/:id)'
@@ -66,7 +66,7 @@ module Conge
             if conge.update_attributes(conge_params_Accept)
                 if user.update_attributes(user_params_AcceptConge)
                 conges = CongeDemande.where(etat:'pas encore traité').paginate(page: p, per_page:2).order('updated_at DESC')
-             render json: {status: 'SUCCESS',message: 'Updated demand accept',data: conges},:include=> :user,status: :ok
+             render json: {status: 'SUCCESS',message: 'Updated demand accept',data: conges,total:(conges.total_pages)},:include=> :user,status: :ok
                 end
             else
                 render json: {status: 'ERROR',message: 'Demand accept not updated ',data: conge.errors},status: :unprocessable_entity
