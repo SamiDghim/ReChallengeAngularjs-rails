@@ -19,11 +19,9 @@
       console.log error
 
   $scope.sendDemande = ->
-    d1 = new Date($scope.dateF)
-    d1.setMinutes(d1.getMinutes() + 60)
-    d2 = new Date($scope.dateD)
-    d2.setMinutes(d2.getMinutes() + 60)
-    userService.sendDemande($scope.user.id,d1,d2,$scope.motifAb).then (res)->
+    d1 = moment($scope.dateF)
+    d2 = moment($scope.dateD)
+    userService.sendDemande($scope.user.id,d1.format(),d2.format(),$scope.motifAb).then (res)->
       $scope.dateF = ''
       $scope.dateD = ''
       $scope.motifAb = ''
@@ -36,9 +34,8 @@
       console.log 'error send demand',error
       $scope.showMsgError = true
 
-  $scope.sendModel = (id) ->
-    $http.get('/conge/getUserCongeModel/'+id).then (model) ->
-      console.log 'model user ', model
-      $scope.myModel = model.data.data
-    ,(error)->
-      console.log error,'model User not found'
+  $scope.getModel = (id) ->
+    userService.getModel(id).then (res) ->
+      $scope.myModel = res
+    ,(error) ->
+      console.log 'error get model',error
