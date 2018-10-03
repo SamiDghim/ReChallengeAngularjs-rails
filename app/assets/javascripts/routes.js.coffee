@@ -1,6 +1,5 @@
 
 @app.config ( $routeProvider, $locationProvider,$httpProvider ) ->
-
   token= $('meta[name="csrf-token"]').attr('content')
   commonHeaders = $httpProvider.defaults.headers.common
   commonHeaders[ 'X-CSRF-TOKEN' ] = token
@@ -10,7 +9,7 @@
   .when "/UserHome",
     controller:  'homeUserCtrl'
     templateUrl: 'views/homeUser.html'
-  
+
   .when "/AdminHome",
     controller:  'homeAdminCtrl'
     templateUrl: 'views/homeAdmin.html'

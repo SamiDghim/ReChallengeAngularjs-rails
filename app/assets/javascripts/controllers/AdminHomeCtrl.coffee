@@ -1,65 +1,48 @@
-@app.controller 'homeAdminCtrl', ($scope,Auth,$location,$http,$window) ->
+@app.controller 'homeAdminCtrl', ($scope,Auth,$location,$http,$window,adminService) ->
     $scope.showMsgValid = false
     $scope.showMsgError = false
     $scope.ActivePageUser=1
     $scope.ActivePageDNT=1
     $scope.ActivePageDT=1
 
-    GetAllDemandsNonT = ->
-        $http.get('/conge/GetAllDemandsNonT').then (res) ->
-                 console.log 'DemandsNonT ', res
-                 $scope.demandesNonT = res.data.data
-                 $scope.pagesDNT = (num for num in [1..res.data.total])
-            ,(error)->
-                console.log error,'Users not found'
+    $scope.user = JSON.parse($window.localStorage.getItem("currentUser"))
+    if $scope.user?
+      $location.path '/login' if $scope.user.role isnt "admin"
 
-    GetAllDemandsT = ->
-        $http.get('/conge/GetAllDemandsT').then (res) ->
-                 console.log 'DemandsT ', res
-                 $scope.demandesT = res.data.data
-                 $scope.pagesDT = (num for num in [1..res.data.total])
-            ,(error)->
-                console.log error,'Users not found'
+      adminService.getAllUsers().then (res) ->
+        $scope.users = res.data
+        $scope.pages = (num for num in [1..res.total])
+      ,(error) ->
+        console.log 'error users not found !' ,error
 
-    GetAllUsers = ->
-        $http.get('/GetAllUsers').then (users) ->
-             console.log users , 'Users for Admin'
-             $scope.users = users.data.data
-             $scope.pages = (num for num in [1..users.data.total])
-        ,(error)->
-            console.log error,'Users not found'
+      adminService.getAllDemandsT().then (res) ->
+        $scope.demandesT = res.data
+        $scope.pagesDT = (num for num in [1..res.total])
+      ,(error) ->
+        console.log 'error demandsT not found !' ,error
 
-    $http.get('/GetLoggedUserInfo').then (res) ->
-        console.log 'res user json', res
-        if res.data.data?
-            $location.path '/login' if res.data.data.role is "user"
-            $scope.user = res.data.data
-            GetAllUsers()
-            GetAllDemandsNonT()
-            GetAllDemandsT()
-
-        else
-            $location.path '/login'
-            return
-    ,(error)->
-        console.log error,' Admin is not logged in'
-        $location.path '/login'
-        return
-
+      adminService.getAllDemandsNonT().then (res) ->
+        $scope.demandesNonT = res.data
+        $scope.pagesDNT = (num for num in [1..res.total])
+      ,(error) ->
+        console.log 'error users not found !' ,error
+     else
+       $location.path '/login'
 
     $scope.find = ->
         $scope.motCle = "" if !$scope.motCle?
         console.log $scope.motCle, 'MOTCLE'
         Indata = {p : $scope.ActivePageDNT }
         $http.get('/conge/search/'+$scope.motCle,Indata).then (res) ->
-                 console.log 'search ', res
-                 $scope.demandesNonT = res.data.data
-                 $scope.pagesDNT = (num for num in [1..res.data.total])
-            ,(error)->
-                console.log error,'Search error'
+          console.log 'search ', res
+          $scope.demandesNonT = res.data.data
+          $scope.pagesDNT = (num for num in [1..res.data.total])
+        ,(error)->
+          console.log error,'Search error'
 
     $scope.logout = ->
         Auth.logout().then (oldUser) ->
+            $window.localStorage.clear()
             $location.path '/login'
         ,(error) ->
             console.log error

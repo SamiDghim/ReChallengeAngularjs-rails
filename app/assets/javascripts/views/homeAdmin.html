@@ -71,7 +71,7 @@
       </tr>
     </thead>
     <tbody class="">
-      <tr ng-repeat="demandeNonT in demandesNonT">
+      <tr ng-repeat="demandeNonT in demandesNonT track by $index">
         <td>{{demandeNonT.user.nom}} {{demandeNonT.user.prenom}} </td>
         <td>{{demandeNonT.date_debut}}</td>
         <td>{{demandeNonT.date_fin}}</td>
