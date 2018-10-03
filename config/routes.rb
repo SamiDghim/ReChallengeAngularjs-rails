@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       get '/getUserCongeModel/(/:id)', to: 'conge#getUserCongeModel'
       get '/GetAllDemandsNonT/(/:p)', to: 'conge#GetAllDemandesNonT'
       get '/GetAllDemandsT/(/:p)', to: 'conge#GetAllDemandsT'
-      get '/search/(/:motCle)', to: 'conge#searchDemandesNonT'
+      get '/search/(/:motCle)/(/:p)', to: 'conge#searchDemandesNonT'
       post '/RejectConge/(/:id)', to: 'conge#RejectConge'
       post '/AcceptConge/(/:id)', to: 'conge#AcceptConge'
   end

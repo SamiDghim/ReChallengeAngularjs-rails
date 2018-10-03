@@ -104,31 +104,31 @@
                 console.log error,'model not found'
 
     $scope.reloadUserPage = (p) ->
-            $scope.ActivePageUser=p
+            $scope.ActivePageUser = p
             $http.get('/GetAllUsers/'+p).then (res) ->
                  $scope.users = res.data.data
             ,(error)->
                 console.log error,'page users not found'
 
     $scope.reloadDNTPage = (p) ->
-            if $scope.motCle?
-              console.log $scope.motCle, 'MOTCLE PAGE'
-              Indata = {p : $scope.ActivePageDNT }
-              $http.get('/conge/search/'+$scope.motCle,Indata).then (res) ->
+            if $scope.motCle
+              $scope.ActivePageDNT = p
+              $http.get('/conge/search/'+$scope.motCle+'/'+p).then (res) ->
                 console.log 'search ', res
                 $scope.demandesNonT = res.data.data
                 $scope.pagesDNT = (num for num in [1..res.data.total])
               ,(error)->
                 console.log error,'Search error'
             else
-            $scope.ActivePageDNT=p
-            $http.get('conge/GetAllDemandsNonT/'+p).then (res) ->
-                 $scope.demandesNonT = res.data.data
-            ,(error)->
+              console.log 'ELSE !'
+              $scope.ActivePageDNT = p
+              $http.get('conge/GetAllDemandsNonT/'+p).then (res) ->
+                $scope.demandesNonT = res.data.data
+              ,(error)->
                 console.log error,'page demandsNonT not found'
 
     $scope.reloadDTPage = (p) ->
-            $scope.ActivePageDT=p
+            $scope.ActivePageDT = p
             $http.get('conge/GetAllDemandsT/'+p).then (res) ->
                  $scope.demandesT = res.data.data
             ,(error)->
