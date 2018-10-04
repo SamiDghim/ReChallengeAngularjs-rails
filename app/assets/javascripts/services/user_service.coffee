@@ -1,25 +1,34 @@
-@app.service 'userService', ($http,$location)->
+@app.service 'userService', ($http,$q)->
 
   this.getUserConges = (id) ->
+    deffered = $q.defer()
     $http.get('/conge/GetUserConges/'+id).then (conges) ->
-      return conges.data.data
+      res = conges.data.data
+      deffered.resolve(res)
     ,(error)->
       console.log error,'Conges User not found'
-      return error
+      deffered.reject(error)
+    return deffered.promise
 
   this.sendDemande = (id,d1,d2,motifAb) ->
+    deffered = $q.defer()
     Indata = {'user_id':id,'date_debut':d2,'date_fin':d1, 'motifAb':motifAb}
     headers = {'Content-Type': 'application/json'}
     $http.post('/conge/saveConge',Indata,headers).then (response) ->
-      return response.data.data
+      res = response.data.data
+      deffered.resolve(res)
     ,(error) ->
       console.log error, 'can not save demand !.'
-      return error
+      deffered.reject(error)
+    return deffered.promise
 
   this.getModel = (id) ->
+    deffered = $q.defer()
     $http.get('/conge/getUserCongeModel/'+id).then (model) ->
-      return model.data.data
+      res = model.data.data
+      deffered.resolve(res)
     ,(error)->
       console.log error,'model User not found'
-      return error
+      deffered.reject(error)
+    return deffered.promise
   return this

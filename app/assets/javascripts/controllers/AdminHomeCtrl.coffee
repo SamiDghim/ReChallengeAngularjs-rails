@@ -4,7 +4,7 @@
     $scope.ActivePageUser = 1
     $scope.ActivePageDNT = 1
     $scope.ActivePageDT = 1
-    
+
     $scope.user = JSON.parse($window.localStorage.getItem("currentUser"))
     if $scope.user?
       $location.path '/login' if $scope.user.role isnt "admin"
@@ -47,7 +47,6 @@
 
     $scope.saveIdCongeDemand = (id) ->
         $scope.idCongeDemand = id
-        console.log $scope.idCongeDemand , 'ID CongeDemand'
 
     $scope.sendReject = ->
             Indata = {motifR : $scope.motifR, etat :'Réfusé', id : $scope.idCongeDemand }

@@ -13,9 +13,6 @@
     $location.path '/login'
 
 
-
-
-
   $scope.logout = ->
     Auth.logout().then (oldUser) ->
       $window.localStorage.clear()
