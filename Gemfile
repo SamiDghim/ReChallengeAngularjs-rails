@@ -39,6 +39,9 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'better_errors', '~> 2.1', '>= 2.1.1'
   gem 'rspec-rails', '~> 3.8'
+  gem 'pry', '~> 0.11.3'
+  gem 'faker', '~> 1.9', '>= 1.9.1'
+  gem 'factory_bot_rails', '~> 4.11', '>= 4.11.1'
 end
 
 group :development do
