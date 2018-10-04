@@ -1,10 +1,10 @@
 @app.controller 'homeAdminCtrl', ($scope,Auth,$location,$http,$window,adminService) ->
     $scope.showMsgValid = false
     $scope.showMsgError = false
-    $scope.ActivePageUser=1
-    $scope.ActivePageDNT=1
-    $scope.ActivePageDT=1
-
+    $scope.ActivePageUser = 1
+    $scope.ActivePageDNT = 1
+    $scope.ActivePageDT = 1
+    
     $scope.user = JSON.parse($window.localStorage.getItem("currentUser"))
     if $scope.user?
       $location.path '/login' if $scope.user.role isnt "admin"
@@ -31,10 +31,8 @@
 
     $scope.find = ->
         $scope.motCle = "" if !$scope.motCle?
-        console.log $scope.motCle, 'MOTCLE'
         Indata = {p : $scope.ActivePageDNT }
         $http.get('/conge/search/'+$scope.motCle,Indata).then (res) ->
-          console.log 'search ', res
           $scope.demandesNonT = res.data.data
           $scope.pagesDNT = (num for num in [1..res.data.total])
         ,(error)->
@@ -120,7 +118,6 @@
               ,(error)->
                 console.log error,'Search error'
             else
-              console.log 'ELSE !'
               $scope.ActivePageDNT = p
               $http.get('conge/GetAllDemandsNonT/'+p).then (res) ->
                 $scope.demandesNonT = res.data.data

@@ -38,10 +38,10 @@
 
   this.sendAccept = (id,user_id,db,df,solde) ->
     _MS_PER_DAY = 1000 * 60 * 60 * 24
-    a=new Date(db)
-    b=new Date(df)
-    utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate())
-    utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate())
+    a = moment(db)
+    b = moment(df)
+    utc1 = Date.UTC(a.year(), a.month(), a.date())
+    utc2 = Date.UTC(b.year(), b.month(), b.date())
     res = Math.floor((utc2 - utc1) / _MS_PER_DAY)
     resF = solde-res
     Indata = {id : id,etat :'Accepté',user_id : user_id,solde : resF}
