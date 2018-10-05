@@ -4,4 +4,6 @@ class User < ApplicationRecord
   has_many :conge_demandes,dependent: :destroy
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  validates :nom, presence: true
+  validates :prenom, presence: true
 end

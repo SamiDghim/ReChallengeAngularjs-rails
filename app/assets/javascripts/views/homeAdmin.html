@@ -57,8 +57,8 @@
   <br>
   <form class="form-inline my-2  float-right">
     <h2 class="my-sm-0" style="padding-right:19.9rem;">Liste des demandes non traitée</h2>
-    <input ng-model=motCle class="form-control mr-sm-2 " type="search" placeholder="Rechercher" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" ng-click="find()">Rechercher</button>
+    <input ng-model=motCle ng-change="find()" class="form-control mr-sm-2 " type="search" placeholder="Rechercher" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" ng-click="find()" >Rechercher</button>
   </form>
   <table class="table table-hover">
     <thead class="table-primary">

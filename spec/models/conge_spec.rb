@@ -8,4 +8,7 @@ RSpec.describe Conge, type: :model do
   it 'should persist a conge Demand' do
     expect(CongeDemande.count).to eq(1)
   end
+
+
+
 end
