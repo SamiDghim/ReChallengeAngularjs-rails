@@ -1,4 +1,4 @@
-<tr>
+<tr ng-show="editorState">
   <td colspan="{{cols.length}}">
     <div ng-repeat="col in cols">
       <span ng-if="col.title !== 'Editer'">
@@ -10,5 +10,7 @@
         </form>
       </span>
     </div>
+    <p></p>
+    <button type="button" ng-click="changeState()" class="btn btn-secondary">Annuler</button>
   </td>
 </tr>

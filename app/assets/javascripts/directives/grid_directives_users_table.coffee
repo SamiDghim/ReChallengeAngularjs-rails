@@ -65,8 +65,12 @@
   restrict: 'E'
   templateUrl: 'editor_initializer_users_table.html'
   controller: ($scope)->
+    $scope.changeState = ->
+      console.log 'NGSHOW'
+      $scope.editorState = false
     clickButton = true
     $scope.edit = (row) ->
+      $scope.editorState = true
       $scope.$broadcast('edit',row) if clickButton is true
       clickButton = false
   link: (scope, element, attributes) ->
