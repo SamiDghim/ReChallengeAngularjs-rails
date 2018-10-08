@@ -9,7 +9,12 @@
     <tbody>
       <tr ng-repeat="row in rows">
         <td ng-repeat="col in cols">
-          {{row[col.field]}}
+          <span ng-if="col.title !== 'Edit'">
+            {{row[col.field]}}
+          </span>
+          <span ng-if="col.title === 'Editer'">
+            <editor-initializer></editor-initializer>
+          </span>
         </td>
       </tr>
     </tbody>

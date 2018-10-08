@@ -1,7 +1,8 @@
 @app.directive 'gridScreen' , (adminService)->
   restrict: 'E'
   controller: ($scope)->
-    setEditor: () ->
+    setEditor: (editor) ->
+      $scope.cols.unshift(editor)
     setColumns: (cols) ->
       $scope.cols = cols
   link: (scope, element, attributes)->
@@ -48,9 +49,29 @@
       $http.get('/GetAllUsers/'+p).then (res) ->
         $scope.rows = res.data.data
       ,(error)->
-        console.log error,'page users not found'  
+        console.log error,'page users not found'
 
 @app.directive 'withInlineEditor' , ->
   restrict: 'A'
-  link: ->
+  require: '^gridScreen'
+  link: (scope, element, attributes, gridScreenCtrl) ->
+    gridScreenCtrl.setEditor({
+      title: 'Editer',
+      field: ''
+      })
     console.log 'linked withInlineEditor'
+
+@app.directive 'editorInitializer' , ($compile,$templateCache)->
+  restrict: 'E'
+  templateUrl: 'editor_initializer_users_table.html'
+  controller: ($scope)->
+    clickButton = true
+    $scope.edit = (row) ->
+      $scope.$broadcast('edit',row) if clickButton is true
+      clickButton = false
+  link: (scope, element, attributes) ->
+    scope.$on('edit', (e,row) ->
+      editor = $compile($templateCache.get('editor.html'))(scope)
+      $(editor).insertAfter(element.parents("tr"))
+      )
+    console.log 'linked editorInitializer'

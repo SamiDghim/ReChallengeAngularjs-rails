@@ -29,3 +29,5 @@
     requireBase: false,
     rewriteLinks: true
   });
+@app.run(($templateRequest) ->
+  $templateRequest('editor.html'))
