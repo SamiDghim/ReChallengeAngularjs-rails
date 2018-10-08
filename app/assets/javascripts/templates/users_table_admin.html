@@ -1,0 +1,24 @@
+<div>
+  <h2>Liste des utilisateurs</h2>
+  <table class="table table-hover">
+    <thead class="table-primary">
+      <tr>
+        <th scope="col" ng-repeat ="col in cols">{{col.title}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="row in rows">
+        <td ng-repeat="col in cols">
+          {{row[col.field]}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <nav aria-label="..." ng-if="pagesUsers.length>1">
+    <ul class="pagination pagination-sm ">
+      <li class="page-item " ng-class="{active : ActivePageUser===page}" ng-repeat="page in pagesUsers">
+        <a class="page-link " ng-click="reloadUserPage(page)" href="#">{{page}}</a>
+      </li>
+    </ul>
+  </nav>
+</div>

@@ -22,35 +22,17 @@
 <br>
 <div class="container">
 
-  <h2>Liste des utilisateurs</h2>
-
-  <table class="table table-hover">
-    <thead class="table-primary">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nom et prenom</th>
-        <th scope="col">Email</th>
-        <th scope="col">Role</th>
-        <th scope="col">Congé solde</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="user in users">
-        <td>{{user.id}}</td>
-        <td>{{user.nom}} {{user.prenom}}</td>
-        <td>{{user.email}}</td>
-        <td>{{user.role}}</td>
-        <td>{{user.solde}}</td>
-      </tr>
-    </tbody>
-  </table>
-  <nav aria-label="..." ng-if="pages.length>1">
-    <ul class="pagination pagination-sm ">
-      <li class="page-item " ng-class="{active : ActivePageUser===page}" ng-repeat="page in pages">
-        <a class="page-link " ng-click="reloadUserPage(page)" href="#">{{page}}</a>
-      </li>
-    </ul>
-  </nav>
+  <grid-screen>
+    <grid-columns>
+      <grid-column title="#" field="id"></grid-column>
+      <grid-column title="Nom" field="nom"></grid-column>
+      <grid-column title="Prenom" field="prenom"></grid-column>
+      <grid-column title="Email" field="email"></grid-column>
+      <grid-column title="Role" field="role"></grid-column>
+      <grid-column title="Solde" field="solde"></grid-column>
+    </grid-columns>
+    <grid with-inline-editor></grip>
+  </grid-screen>
   <p></p>
   <hr>
   <br>
@@ -81,13 +63,6 @@
       </tr>
     </tbody>
   </table>
-  <nav aria-label="..." ng-if="pagesDNT.length>1">
-    <ul class="pagination pagination-sm ">
-      <li class="page-item " ng-class="{active : ActivePageDNT===page}" ng-repeat="page in pagesDNT">
-        <a class="page-link " ng-click="reloadDNTPage(page)" href="#">{{page}}</a>
-      </li>
-    </ul>
-  </nav>
   <hr>
   <br>
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

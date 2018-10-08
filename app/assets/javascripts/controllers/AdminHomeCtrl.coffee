@@ -9,12 +9,6 @@
     if $scope.user?
       $location.path '/login' if $scope.user.role isnt "admin"
 
-      adminService.getAllUsers().then (res) ->
-        $scope.users = res.data
-        $scope.pages = (num for num in [1..res.total])
-      ,(error) ->
-        console.log 'error users not found !' ,error
-
       adminService.getAllDemandsT().then (res) ->
         $scope.demandesT = res.data
         $scope.pagesDT = (num for num in [1..res.total])
@@ -99,13 +93,6 @@
                  $scope.myModel = model.data.data
             ,(error)->
                 console.log error,'model not found'
-
-    $scope.reloadUserPage = (p) ->
-            $scope.ActivePageUser = p
-            $http.get('/GetAllUsers/'+p).then (res) ->
-                 $scope.users = res.data.data
-            ,(error)->
-                console.log error,'page users not found'
 
     $scope.reloadDNTPage = (p) ->
             if $scope.motCle
