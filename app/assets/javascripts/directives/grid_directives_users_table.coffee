@@ -61,18 +61,24 @@
       })
     console.log 'linked withInlineEditor'
 
-@app.directive 'editorInitializer' , ($compile,$templateCache)->
+@app.directive 'editorInitializer' , ($compile,$templateCache,adminService)->
   restrict: 'E'
   templateUrl: 'editor_initializer_users_table.html'
   controller: ($scope)->
     $scope.changeState = ->
-      console.log 'NGSHOW'
       $scope.editorState = false
     clickButton = true
     $scope.edit = (row) ->
       $scope.editorState = true
       $scope.$broadcast('edit',row) if clickButton is true
       clickButton = false
+    $scope.editUser = () ->
+      console.log $scope.row.id,'F'
+      adminService.editUser($scope.row.id,$scope.row).then (res) ->
+        $scope.rows = res.data
+        $scope.pagesUsers = (num for num in [1..res.total])
+        $scope.$broadcast('ready-to-render', $scope.rows, $scope.cols , $scope.pagesUsers)
+        $scope.editorState = false
   link: (scope, element, attributes) ->
     scope.$on('edit', (e,row) ->
       editor = $compile($templateCache.get('editor.html'))(scope)

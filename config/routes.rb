@@ -20,6 +20,7 @@ Rails.application.routes.draw do
    get '/login', to: 'application#index'
    get '/register', to: 'application#index'
    get '/GetAllUsers/(/:p)', to: 'user#GetAllUsers'
+   put '/updateUser/(/:id)', to: 'user#updateUser'
 #   match '*a', :to => 'application#not_found', via: :get
 
 end

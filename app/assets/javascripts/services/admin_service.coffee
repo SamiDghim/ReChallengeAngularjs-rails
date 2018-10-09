@@ -30,6 +30,16 @@
       deffered.reject(error)
      return deffered.promise
 
+  this.editUser = (id,data)->
+    deffered = $q.defer()
+    $http.put('/updateUser/'+id,data).then (users) ->
+      users = users.data
+      deffered.resolve(users)
+    ,(error)->
+      console.log error,'User update failed'
+      deffered.reject(error)
+     return deffered.promise
+
   this.findByMc = (mc,Indata)->
     $http.get('/conge/search/'+mc,Indata).then (res) ->
       return res.data
