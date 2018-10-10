@@ -8,11 +8,11 @@
   $routeProvider
   .when "/UserHome",
     controller:  'homeUserCtrl'
-    templateUrl: 'views/homeUser.html'
+    templateUrl: 'views/users/homeUser.html'
 
   .when "/AdminHome",
     controller:  'homeAdminCtrl'
-    templateUrl: 'views/homeAdmin.html'
+    templateUrl: 'views/users/homeAdmin.html'
 
   .when "/login",
     controller:  'authCtrl'
@@ -29,5 +29,5 @@
     requireBase: false,
     rewriteLinks: true
   });
-@app.run(($templateRequest) ->
-  $templateRequest('editor.html'))
+# @app.run(($templateRequest) ->
+  # $templateRequest('editor.html'))

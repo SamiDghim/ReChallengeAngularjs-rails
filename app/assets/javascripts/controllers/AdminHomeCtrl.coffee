@@ -5,6 +5,7 @@
     $scope.ActivePageDNT = 1
     $scope.ActivePageDT = 1
     $scope.editorState = true
+    $scope.showMsgValidEditUser = false
 
     $scope.user = JSON.parse($window.localStorage.getItem("currentUser"))
     if $scope.user?
@@ -23,6 +24,8 @@
         console.log 'error users not found !' ,error
      else
        $location.path '/login'
+
+
 
     $scope.find = ->
         $scope.motCle = "" if !$scope.motCle?
@@ -117,4 +120,3 @@
                  $scope.demandesT = res.data.data
             ,(error)->
                 console.log error,'page demandsNonT not found'
-  
