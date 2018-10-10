@@ -16,8 +16,11 @@
     <tbody>
       <tr ng-repeat="row in rows">
         <td ng-repeat="col in cols">
-          <span ng-if="col.title !== 'Edit'">
+          <span ng-if="col.title !== 'Edit' && col.title !== 'Créer le'">
             {{row[col.field]}}
+          </span>
+          <span ng-if="col.title === 'Créer le'">
+            {{row[col.field] | date :'medium'}}
           </span>
           <span ng-if="col.title === 'Editer'">
             <editor-initializer></editor-initializer>

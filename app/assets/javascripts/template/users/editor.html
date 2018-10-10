@@ -5,8 +5,9 @@
       <span ng-if="col.title !== 'Editer'">
           <div class="form-row">
             <label class="col-form-label px-2">{{col.field}} : </label>
-            <input type="text" ng-if="col.field !== 'id'" ng-model="row[col.field]" class="form-control" required>
+            <input type="text" ng-if="col.field !== 'id' && col.title !== 'Créer le'" ng-model="row[col.field]" class="form-control" required>
             <input type="text" readonly ng-model="row[col.field]" ng-if="col.field === 'id'" class="form-control">
+            <input type="text" readonly ng-value="row[col.field] | date :'medium'" ng-if="col.title === 'Créer le'" class="form-control">
           </div>
       </span>
     </div>

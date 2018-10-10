@@ -19,7 +19,7 @@
 </nav>
 <p></p>
 <div class="row col-md-12">
-  <h1> Bienvenue {{user.nom}} {{user.prenom}} !</h1>
+  <h1> &#160; Bienvenue {{user.nom}} {{user.prenom}} !</h1>
 </div>
 <br>
 <div class="container">
@@ -32,6 +32,7 @@
       <grid-column title="Email" field="email"></grid-column>
       <grid-column title="Role" field="role"></grid-column>
       <grid-column title="Solde" field="solde"></grid-column>
+      <grid-column title="Créer le" field="created_at"></grid-column>
     </grid-columns>
     <grid with-inline-editor></grip>
   </grid-screen>

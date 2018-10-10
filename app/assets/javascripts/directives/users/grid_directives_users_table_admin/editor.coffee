@@ -21,7 +21,6 @@
       $scope.$broadcast('edit',row) if clickButton is true
       clickButton = false
     $scope.editUser = () ->
-      console.log $scope.row.id,'F'
       adminService.editUser($scope.row.id,$scope.row).then (res) ->
         $scope.rows = res.data
         $scope.pagesUsers = (num for num in [1..res.total])
@@ -32,7 +31,6 @@
         $timeout ->
           $('#editMsg').hide(1000)
         ,3000
-        console.log '$scope.showMsgValidEditUser === ',$scope.showMsgValidEditUser
   link: (scope, element, attributes) ->
     scope.$on('edit', (e,row) ->
       editor = $compile($templateCache.get("template/users/editor.html"))(scope)
