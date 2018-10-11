@@ -1,30 +1,36 @@
-<div class="card ">
-  <div class="card-header bg-info">
-    Vos Demandes
-  </div>
-  <div class="card-body ">
-    <h5 class="card-title">l’état des vos demandes : </h5>
-    <table class="table table-hover ">
-      <thead class="table-primary">
-        <tr>
-          <th scope="col">Date début</th>
-          <th scope="col">Date fin</th>
-          <th scope="col">Motif d’absence</th>
-          <th scope="col">Etat</th>
-        </tr>
-      </thead>
-      <tbody class="">
-        <tr ng-repeat="conge in conges" ng-click="getModel(conge.id)" data-toggle="modal" data-target="#exampleModal">
-          <td>{{conge.date_debut}}</td>
-          <td>{{conge.date_fin}}</td>
-          <td>{{conge.motifAb}}</td>
-          <td>{{conge.etat}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<div class="container">
+ <div class="row listeDemandeDiv">
+   <div class="col-md-12">
+     <h5> Liste de vos demandes </h5>
+   </div>
+   <div class="col-md-12">
+     <table class="table table-hover ">
+       <thead class="table-primary" >
+         <tr>
+           <th scope="col"><a ng-click="set('date_debut')" >Date début  </a></th>
+           <th scope="col"><a ng-click="set('date_fin')" > Date fin </a></th>
+           <th scope="col"><a ng-click="set('motifAb')" > Motif d’absence </a></th>
+           <th scope="col"><a ng-click="set('etat')" > Etat </a></th>
+           <th scope="col"></th>
+         </tr>
+       </thead>
+       <tbody class="">
+         <tr ng-repeat="conge in conges |orderBy:orderByField:reverseSort" >
+           <td>{{conge.date_debut}} </td>
+           <td>{{conge.date_fin}}</td>
+           <td>{{conge.motifAb}}</td>
+           <td>{{conge.etat}}</td>
+           <td>
+             <a  style="color :#94d2e6;" ng-click="getModel(conge.id)" data-toggle="modal" data-target="#exampleModal" ><i class="fa fa-eye"></i></a>
+             <a style="color :#94d2e6;" >   <i class="fa fa-pencil-square-o"></i> </a>
+             <a  style="color :#c1224f;"data-toggle="modal" data-target="#deletDemandeModal" ng-click="getModel(conge.id)">   <i class="fa fa-remove"></i> </a>
+           </td>
+         </tr>
+       </tbody>
+     </table>
+   </div>
+ </div>
 </div>
-<p></p>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -48,3 +54,24 @@
     </div>
   </div>
 </div>
+<div class="modal fade" id="deletDemandeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Supprimer cette demande</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          Voulez-vous vraiment supprimer cette demande ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="deletDemande(myModel[0].id)">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-Welcome user="user"></ng-Welcome>

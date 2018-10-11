@@ -5,8 +5,15 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 gem 'devise'
+gem 'devise_token_auth'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.6'
+#bootstrap
+gem 'bootstrap', '~> 4.1.1'
+gem 'bootstrap-sass', '~> 3.4.0'
+gem 'sassc-rails', '>= 2.0.0'
+gem 'jquery-rails'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
@@ -30,7 +37,8 @@ gem 'angular_rails_csrf'
 gem 'will_paginate', '~> 3.1.0'
 gem "font-awesome-rails"
 gem 'momentjs-rails'
-
+#Angular
+gem 'angularjs-rails', '~> 1.5', '>= 1.5.6'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -43,7 +51,9 @@ group :development, :test do
   gem 'faker', '~> 1.9', '>= 1.9.1'
   gem 'factory_bot_rails', '~> 4.11', '>= 4.11.1'
 end
-
+source "https://rails-assets.org" do
+  gem "rails-assets-angular-devise"
+end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
