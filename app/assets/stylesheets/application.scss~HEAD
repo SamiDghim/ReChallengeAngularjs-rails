@@ -1,0 +1,79 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+//= require font-awesome
+//= require_self
+//= require_tree
+@import "bootstrap";
+ .mt-6{
+    margin-top: 10rem !important;
+}
+
+body {
+  font-family: "Roboto";
+}
+#navbar {
+  background-color: #383838 ;
+}
+#navbar a {
+      color: #fff;
+      font-weight: inherit;
+      font-size: larger;
+      margin-bottom: 15px;
+      margin-top: 15px;
+}
+.btnProfil button {
+    background-color: transparent;
+    color: #fff;
+    font-weight: inherit;
+    font-size: larger;
+    margin-bottom: 15px;
+    margin-top: 15px;
+
+}
+.btnProfil  a{
+  color :#000
+}
+.table {
+  box-shadow: 0 3px 6px #38383847;
+  border-radius: 11px;
+  margin-top: 10px ;
+}
+.table-primary {
+  background-color: #e6b31e;
+  color: white;
+}
+.table-primary :hover{
+  background-color: #383838;
+}
+.table-primary a{
+  cursor: pointer;
+}
+.listeDemandeDiv{
+
+}
+.btnDemander{
+  background-color: #383838 ;
+  border : 0 ;
+float :  right;
+}
+td a {
+  cursor: pointer;
+}
+
+
+h5 {
+  font-size: xx-large;
+font-family: "Roboto";
+font-weight: lighter;
+}
