@@ -1,0 +1,7 @@
+.autocompleteAdmin li{
+    cursor: pointer!important;
+}
+
+.autocompleteAdmin li:hover{
+    background-color: #f9f9f9!important;
+}
