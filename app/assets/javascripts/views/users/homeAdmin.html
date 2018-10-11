@@ -40,11 +40,21 @@
   <hr>
   <br>
   <br>
-  <form class="form-inline my-2  float-right">
-    <h2 class="my-sm-0" style="padding-right:19.9rem;">Liste des demandes non traitée</h2>
-    <input ng-model=motCle ng-change="find()" class="form-control mr-sm-2 " type="search" placeholder="Rechercher" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" ng-click="find()" >Rechercher</button>
-  </form>
+  <h2 class="my-sm-0" align="center" >Liste des demandes non traitée</h2>
+  <div class="float-right">
+    <form class="form-inline" autocomplete="off" align="center">
+      <input ng-keyup="complete(motCle)" ng-model=motCle ng-change="find()" class="form-control " type="search" placeholder="Rechercher" aria-label="Search">
+    </form>
+    <div class="autocompleteAdmin">
+      <ul class="list-group">
+        <li class="list-group-item py-2" ng-repeat="item in filterList track by $index">{{item}}</li>
+      </ul>
+    </div>
+  </div>
+
+  <br>
+  <br>
+
   <table class="table table-hover">
     <thead class="table-primary">
       <tr>
@@ -105,7 +115,8 @@
   <div class="alert alert-success col-md-5" ng-if="showMsgError" role="alert">
     échec d'envoi !
   </div>
-  <h2>Liste de demandes traitée</h2>
+  <h2 align="center">Liste de demandes traitée</h2>
+  <p></p>
   <table class="table table-hover">
     <thead class="table-primary">
       <tr>

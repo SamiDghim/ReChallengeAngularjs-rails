@@ -26,7 +26,22 @@
        $location.path '/login'
 
 
+    $scope.complete = (mc) ->
+      $scope.filterList = []
+      if mc?
+        if mc.length > 0
+          mc = mc.replace(/\s/g,'')
+          console.log "MC === ",mc
+          myList = []
+          username = ''
+          angular.forEach $scope.demandesNonT, (name) ->
+            username = name.user.nom+name.user.prenom
+            console.log 'USERNAME !',username
+            myList.push(name.user.nom + ' ' + name.user.prenom) if(name.user.nom.toLowerCase().indexOf(mc.toLowerCase()) >= 0 ) or
+            (name.user.prenom.toLowerCase().indexOf(mc.toLowerCase()) >= 0 ) or (username.toLowerCase().indexOf(mc.toLowerCase()) >= 0 )
+          console.log 'myList' , myList
 
+          $scope.filterList = myList
     $scope.find = ->
         $scope.motCle = "" if !$scope.motCle?
         Indata = {p : $scope.ActivePageDNT }
