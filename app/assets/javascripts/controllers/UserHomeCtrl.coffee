@@ -22,6 +22,7 @@
       $location.path '/login'
     ,(error) ->
       console.log error
+
   $scope.sendDemande = ->
     d1 = moment($scope.dateF)
     d2 = moment($scope.dateD)
@@ -38,18 +39,48 @@
     ,(error) ->
       console.log 'error send demand',error
       $scope.showMsgError = true
+
+  $scope.deleteDemande = (id) ->
+      userService.deleteDemande(id).then (res) ->
+         console.log 'ok'
+      userService.getUserConges($scope.user.id).then (resp) ->
+         $scope.conges = resp
+      .catch (e) ->
+          console.log 'error in delete fuction' ,e
+      ,(error) ->
+        console.log 'error',error
+
   $scope.getModel = (id) ->
     userService.getModel(id).then (res) ->
       $scope.myModel = res
     ,(error) ->
       console.log 'error get model',error
 
-  $scope.deletDemande = (id) ->
-    userService.deletDemande(id).then (res)->
-      console.log ('ok')
+  $scope.updateDemande = ->
+    userService.updateDemande($scope.myModel[0].id, $scope.myModel[0])
+    .then (res) ->
+       console.log 'ok'
     userService.getUserConges($scope.user.id).then (resp) ->
-      $scope.conges = resp
-      .catch (e) ->
-        console.log 'error' ,e
+       $scope.conges = resp
+    .catch (e) ->
+        console.log 'error in update fuction' ,e
     ,(error) ->
-    console.log 'error delete demand',error
+      console.log 'error',error
+
+  $scope.showPasswordError = false
+  $scope.changeInfo = ->
+
+    if $scope.passwordConfirm isnt $scope.user.password or $scope.user.password.length < 6
+      $scope.showPasswordError = true
+      console.log 'error error'
+      return
+
+    else
+      userService.changeInfo($scope.user.id, $scope.user).then (res) ->
+        Auth.logout().then (oldUser) ->
+          $window.localStorage.clear()
+          $location.path '/login'
+      .catch (e) ->
+          console.log 'error in update fuction' ,e
+      ,(error) ->
+        console.log 'error',error
