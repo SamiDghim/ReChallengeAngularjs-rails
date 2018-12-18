@@ -22,6 +22,11 @@
     controller:  'registerCtrl'
     templateUrl: 'views/register.html'
 
+  .when "/State",
+    controller:  'stateCtrl'
+    templateUrl: 'views/users/state.html'
+
+
   .otherwise redirectTo: "/login"
 
   $locationProvider.html5Mode({

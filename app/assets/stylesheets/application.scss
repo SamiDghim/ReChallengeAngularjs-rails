@@ -11,12 +11,38 @@
  * It is generally better to create a new file per style scope.
  *
  */
-
-
 //= require font-awesome
 //= require_self
 //= require_tree
 @import "bootstrap";
  .mt-6{
     margin-top: 10rem !important;
+}
+
+body {
+  font-family: "Roboto";
+}
+#navbar {
+  background-color: #2b2b28 ;
+}
+#navbar a {
+      color: #fff;
+      font-weight: inherit;
+      font-size: larger;
+      margin-bottom: 15px;
+      margin-top: 15px;
+}
+.btnProfil button {
+    background-color: transparent;
+    color: #fff;
+    font-weight: inherit;
+    font-size: larger;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+.btnProfil  a{
+  color :#000
+}
+.table {
+  box-shadow: 0 3px 6px #38383847;
 }
