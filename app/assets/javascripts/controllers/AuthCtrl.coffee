@@ -2,9 +2,10 @@
   $scope.isLogedIn = false
   $scope.showLoginError = false
   $http.get('/GetLoggedUserInfo').then (res) ->
-    console.log 'res user json', res
+    console.log 'res user json ', res
     $scope.user = res
     if res.data.data?
+      $window.localStorage.setItem("currentUser", angular.toJson(res.data.data))
       if res.data.data.role is "user"
         $location.path '/UserHome'
       else
@@ -19,7 +20,7 @@
   $scope.submit = ->
     Auth.login( $scope.user ).then ->
       $http.get('/GetLoggedUserInfo').then (res) ->
-        console.log 'res user json', res
+        console.log 'res user json 1', res
         $scope.user = res
         if res.data.data?
           $window.localStorage.setItem("currentUser", angular.toJson(res.data.data))
