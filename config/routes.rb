@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       get '/search/(/:motCle)/(/:p)', to: 'conge#searchDemandesNonT'
       post '/RejectConge/(/:id)', to: 'conge#RejectConge'
       post '/AcceptConge/(/:id)', to: 'conge#AcceptConge'
-      delete '/deletDemande/(/:id)', to: 'conge#deletDemande'
+      delete '/deletDemande/:id', to: 'conge#deletDemande'
 
   end
 
@@ -19,11 +19,14 @@ Rails.application.routes.draw do
    get '/UserHome', to: 'application#index'
    get '/AdminHome', to: 'application#index'
    get '/State', to: 'application#index'
+   get '/profile-admin', to: 'application#index'
    get '/GetLoggedUserInfo', to: 'application#GetLoggedUserInfo'
    get '/login', to: 'application#index'
    get '/register', to: 'application#index'
    get '/GetAllUsers/(/:p)', to: 'user#GetAllUsers'
    put '/updateUser/(/:id)', to: 'user#updateUser'
+   put '/updatePassword/(/:id)', to: 'user#updatePassword'
+   post '/addUser', to: 'user#addUser'
 #   match '*a', :to => 'application#not_found', via: :get
 
 end

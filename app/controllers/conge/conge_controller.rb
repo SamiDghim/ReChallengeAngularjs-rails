@@ -9,6 +9,11 @@ module Conge
                 render json: {status: 'ERROR',message: 'Demand not saved ',data: conge.errors},status: :unprocessable_entity
             end
         end
+        def deletDemande
+            conge = CongeDemande.destroy(params[:id]);
+            render json: {status: 'SUCCESS',message: 'deleted'}, status: :ok
+
+        end
 
         # get '/GetUserConges/(/:id)
         def getUserConges

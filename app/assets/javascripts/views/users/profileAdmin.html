@@ -1,0 +1,82 @@
+<entete ng-if="user!=null"></entete>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-6 div_update">
+        <div class="col-md-6 alert alert-success col-md-5" ng-if="showMsgValid" role="alert">
+          profil modifié :) !
+        </div>
+        <div class="alert alert-success col-md-5" ng-if="showMsgError" role="alert">
+          échec d'envoi !
+        </div>
+        <form class="form-horizontal" method="post" ng-submit="modifier()" name="myForm">
+          <div class="form-group">
+            <label for="name" class="cols-sm-2 control-label">Nom</label>
+            <div class="cols-sm-10">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" ng-model="user.nom" id="nom" placeholder="Entez votre nom" required autofocus />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="name" class="cols-sm-2 control-label">Prenom</label>
+            <div class="cols-sm-10">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" ng-model="user.prenom" id="prenom" placeholder="Entez votre prenom" required />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email" class="cols-sm-2 control-label">Votre mail</label>
+            <div class="cols-sm-10">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                <input type="email" class="form-control" ng-model="user.email" id="email" placeholder="Entez votre mail" required />
+              </div>
+            </div>
+          </div>
+          <div class="form-group ">
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Modifier</button>
+          </div>
+        </form>
+        <a style="cursor:pointer;color:blue " ng-click="refreshData()" data-toggle="modal" data-target="#updatePasswordModal"> Voulez-vous changer votre mot de passe ? </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="updatePasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Changez votre mot de passe </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form name="myForm" ng-submit="updatePassword()">
+        <div class="modal-body">
+          <div class="alert alert-success col-md-5" ng-if="showMsgValid" role="alert">
+            Demande enregistré :) !
+          </div>
+          <div class="alert alert-danger col-md-5" ng-if="showMsgError" role="alert">
+            échec d'envoi !
+          </div>
+          <div class="col-md-12">
+            <label class="col-form-label">Nouveau mot de passe</label>
+            <input required ng-model="parameters.password" class="form-control" type="password">
+          </div>
+          <div class="col-md-12">
+            <label class="col-form-label">Confirmez votre mot de passe</label>
+            <input type="password " class="form-control" required ng-model="parameters.password_confirmation" ></input>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button ng-disabled="myForm.$invalid || myForm.$pending" type="submit" class="btn btn-primary">Modifier</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

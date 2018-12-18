@@ -22,14 +22,14 @@
       deffered.reject(error)
     return deffered.promise
 
-    this.deletDemande = (id)->
+  this.deletDemande = (id)->
       deffered = $q.defer()
       $http.delete('/conge/deletDemande/'+id).then (res) ->
         console.log ('here')
         deffered.resolve(res)
       ,(error)->
         console.log error,'cant delete this demande'
-        deffered.reject(error)
+        deffered.reject('ERROR => '+ error)
        return deffered.promise
 
   this.getModel = (id) ->

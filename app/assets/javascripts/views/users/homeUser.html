@@ -1,56 +1,58 @@
 <entete ng-if="user!=null"></entete>
 <div class="container" style="margin-top: 60px;">
- <div class="row">
-   <div class="col-md-12">
-       <button type="button" class="btn btn-primary btnDemander" data-toggle="modal" data-target="#BtnDemandeCongeModal">
-       <i class="fa fa-plus"></i> Ajouter une demande
-       </button>
-   </div>
-   <div class="modal fade" id="BtnDemandeCongeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-     <div class="modal-dialog modal-lg" role="document">
-       <div class="modal-content">
-         <div class="modal-header">
-           <h5 class="modal-title" id="exampleModalLongTitle">Demande de congé</h5>
-           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">&times;</span>
-           </button>
-         </div>
-           <form name="myForm" ng-submit="sendDemande()">
-         <div class="modal-body">
-             <div class="alert alert-success col-md-5" ng-if="showMsgValid" role="alert">
-               Demande enregistré :) !
-             </div>
-             <div class="alert alert-danger col-md-5" ng-if="showMsgError" role="alert">
-               échec d'envoi !
-             </div>
-             <div class="row col-md-12">
-               <div class="col-md-6">
-                 <label class=" col-form-label">Date début</label>
-                 <input required ng-model="dateD" class="form-control" type="date">
-               </div>
-               <div class="col-md-6">
-                 <label class="col-form-label">Date fin</label>
-                 <input required ng-model="dateF" class="form-control" type="date">
-               </div>
-             </div>
-             <p></p>
-             <div class="row ">
-               <div class="col-md-12">
-                 <label class="col-form-label">Motif d'absence</label>
-                 <input type="text "class="form-control" required ng-model="motifAb" id="exampleFormControlTextarea1" rows="3"></input>
-               </div>
-             </div>
-         </div>
-         <div class="modal-footer">
-           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-         <button ng-disabled="myForm.$invalid || myForm.$pending" type="submit" class="btn btn-primary">Demande</button>
-         </div>
-       </form>
-       </div>
-     </div>
-   </div>
-  <div class="col-md-12"> <ng-user-table-demands></ng-user-table-demands></div>
- </div>
+  <div class="row">
+    <div class="col-md-12">
+      <button type="button" class="btn btn-primary btnDemander" data-toggle="modal" data-target="#BtnDemandeCongeModal">
+        <i class="fa fa-plus"></i> Ajouter une demande
+      </button>
+    </div>
+    <div class="modal fade" id="BtnDemandeCongeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Demande de congé</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form name="myForm" ng-submit="sendDemande()">
+            <div class="modal-body">
+              <div class="alert alert-success col-md-5" ng-if="showMsgValid" role="alert">
+                Demande enregistré :) !
+              </div>
+              <div class="alert alert-danger col-md-5" ng-if="showMsgError" role="alert">
+                échec d'envoi !
+              </div>
+              <div class="row col-md-12">
+                <div class="col-md-6">
+                  <label class=" col-form-label">Date début</label>
+                  <input required ng-model="dateD" class="form-control" type="date">
+                </div>
+                <div class="col-md-6">
+                  <label class="col-form-label">Date fin</label>
+                  <input required ng-model="dateF" class="form-control" type="date">
+                </div>
+              </div>
+              <p></p>
+              <div class="row ">
+                <div class="col-md-12">
+                  <label class="col-form-label">Motif d'absence</label>
+                  <input type="text " class="form-control" required ng-model="motifAb" id="exampleFormControlTextarea1" rows="3"></input>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button ng-disabled="myForm.$invalid || myForm.$pending" type="submit" class="btn btn-primary">Demande</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <ng-user-table-demands></ng-user-table-demands>
+    </div>
+  </div>
 </div>
 
 <ui-view></ui-view>

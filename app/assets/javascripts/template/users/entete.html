@@ -1,15 +1,18 @@
-<nav style="background-color:#383838" class="navbar navbar-expand-lg " id="navbar">
+<nav style="background-color:#383838" class="navbar navbar-expand-lg navbar-dark" id="navbar">
   <a class="navbar-brand" href="#">Dashboard</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+  <button class="navbar-toggler"  style="color:white" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon" style="color:white"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto" >
       <li class="nav-item active">
-        <a class="nav-link" href="/home">Accueil <span class="sr-only">(current)</span></a>
+        <a class="nav-link" ng-if="user.role =='user' "  href="/home">Accueil <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="/State">L'état de l'équipe </a>
+        <a class="nav-link" ng-if="user.role =='admin' " href="/AdminHome">Accueil <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" ng-if="user.role =='user' " href="/State">L'état de l'équipe </a>
       </li>
     </ul>
     <ul class="navbar-nav ">
@@ -18,7 +21,8 @@
         <i class="fa fa-user-circle"></i>
         </button>
         <div class="dropdown-menu" style="margin-left: -96px;" >
-            <a style="color :#000" class="nav-link" href="#">Profil</a>
+            <a style="color :#000" ng-if="user.role =='user' " class="nav-link" href="#">Profil</a>
+            <a style="color :#000" ng-if="user.role =='admin'"class="nav-link" href="/profile-admin">Profil Admin</a>
             <a style="color :#000" class="nav-link" ng-click="logout()" href="#">Se déconnecter</a>
         </div>
       </div>

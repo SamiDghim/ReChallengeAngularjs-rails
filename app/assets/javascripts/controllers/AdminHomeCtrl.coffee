@@ -6,6 +6,10 @@
     $scope.ActivePageDT = 1
     $scope.editorState = true
     $scope.showMsgValidEditUser = false
+    $scope.orderByField = 'nom';
+    $scope.set = (orderByField ) ->
+      $scope.orderByField = orderByField
+    $scope.reverseSort = false;
 
     $scope.user = JSON.parse($window.localStorage.getItem("currentUser"))
     if $scope.user?
@@ -135,3 +139,17 @@
                  $scope.demandesT = res.data.data
             ,(error)->
                 console.log error,'page demandsNonT not found'
+    $scope.addUser = ->
+      console.log 'her' , $scope.u
+      if $scope.passwordConfirm isnt $scope.u.password or $scope.u.password.length <6
+        $scope.showEmailError = false
+        $scope.showPasswordError = true
+        return
+      else
+      console.log $scope.u,'User register data'
+      adminService.addUser( $scope.u ).then ->
+        angular.element('#addUserModale').modal('hide');
+      ,(error)->
+        $scope.showPasswordError = false
+        $scope.showEmailError = true if error.data.errors.email[0] is "has already been taken"
+        console.log error,'register failed !'

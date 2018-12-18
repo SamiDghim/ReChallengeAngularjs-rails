@@ -7,13 +7,11 @@
     if res.data.data?
       $window.localStorage.setItem("currentUser", angular.toJson(res.data.data))
       if res.data.data.role is "user"
-        $window.localStorage.setItem("currentUser", angular.toJson(res.data.data))
         $location.path '/UserHome'
       else
         $location.path '/AdminHome'
-    if not res.data.data?
+    if !res.data.data?
       $scope.isLogedIn = true
-
    ,(error)->
       console.log error,' User is not logged in'
       $scope.isLogedIn = true

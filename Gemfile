@@ -15,7 +15,10 @@ gem 'bootstrap-sass', '~> 3.4.0'
 gem 'sassc-rails', '>= 2.0.0'
 gem 'jquery-rails'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+#gem 'sqlite3'
+# Use postgres as the database for Active Record
+#Postgresql Database
+  gem 'pg', '~> 1.1', '>= 1.1.3'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
@@ -26,21 +29,6 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
-#gem bootstrap
-gem 'bootstrap-sass', '~> 3.3.7'
-gem 'jquery-rails'
-
-#jquery
-gem 'jquery-ui-rails'
-gem 'turbolinks'
-gem 'rails-ujs', '~> 0.1.0'
-
-#angular_rails
-gem 'angularjs-rails'
-gem 'angularjs-rails-resource'
-gem 'angular-rails-templates'
-
 gem 'sprockets'
 gem 'angular-rails-templates'
 gem "bower-rails", "~> 0.11.0"
@@ -74,10 +62,5 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   gem "spring"
 end
-
-source "https://rails-assets.org" do
-  gem "rails-assets-angular-devise"
-end
-
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

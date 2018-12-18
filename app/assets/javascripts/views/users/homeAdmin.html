@@ -1,170 +1,292 @@
-<nav class="navbar navbar-expand navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">ADMIN</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarsExample02">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
-      </li>
-    </ul>
-    <ul class="navbar-nav ">
-      <li class="nav-item active">
-        <a class="nav-link" ng-click="logout()" href="#">Se déconnecter</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-<p></p>
-<div class="row col-md-12">
-  <h1> &#160; Bienvenue {{user.nom}} {{user.prenom}} !</h1>
-</div>
-<br>
-<div class="container">
-
-  <grid-screen>
-    <grid-columns>
-      <grid-column title="#" field="id"></grid-column>
-      <grid-column title="Nom" field="nom"></grid-column>
-      <grid-column title="Prenom" field="prenom"></grid-column>
-      <grid-column title="Email" field="email"></grid-column>
-      <grid-column title="Role" field="role"></grid-column>
-      <grid-column title="Solde" field="solde"></grid-column>
-      <grid-column title="Créer le" field="created_at"></grid-column>
-    </grid-columns>
-    <grid with-inline-editor></grip>
-  </grid-screen>
-  <p></p>
-  <hr>
-  <br>
-  <br>
-  <h2 class="my-sm-0" align="center" >Liste des demandes non traitée</h2>
-  <div class="float-right">
-    <form class="form-inline" autocomplete="off" align="center">
-      <input ng-keyup="complete(motCle)" ng-model=motCle ng-change="find()" class="form-control " type="search" placeholder="Rechercher" aria-label="Search">
-    </form>
-    <div class="autocompleteAdmin">
-      <ul class="list-group">
-        <li class="list-group-item py-2" ng-repeat="item in filterList track by $index">{{item}}</li>
-      </ul>
+<entete ng-if="user!=null"></entete>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active">
+    <a href="#users" role="tab" data-toggle="tab" class="nav-link active" target="_self">
+      Utilisateurs
+    </a>
+  </li>
+  <li>
+    <a href="#traitees" role="tab" data-toggle="tab" class="nav-link" target="_self">
+      Demandes non traitées
+    </a>
+  </li>
+  <li>
+    <a href="#nonTraitees" role="tab" data-toggle="tab" class="nav-link" target="_self" target="_self">
+      Demandes traitées
+    </a>
+  </li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="users">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <button data-toggle="modal" data-target="#addUserModale" class="btn btn-secondary" style="background-color:#383838">Ajouter un utilisateur</button>
+        </div>
+        <grid-screen>
+          <grid-columns>
+            <grid-column title="#" field="id"></grid-column>
+            <grid-column title="Nom" field="nom"></grid-column>
+            <grid-column title="Prenom" field="prenom"></grid-column>
+            <grid-column title="Email" field="email"></grid-column>
+            <grid-column title="Role" field="role"></grid-column>
+            <grid-column title="Solde" field="solde"></grid-column>
+            <grid-column title="Créer le" field="created_at"></grid-column>
+          </grid-columns>
+          <grid with-inline-editor></grid>
+        </grid-screen>
+      </div>
     </div>
   </div>
-
-  <br>
-  <br>
-
-  <table class="table table-hover">
-    <thead class="table-primary">
-      <tr>
-        <th scope="col">Salarié</th>
-        <th scope="col">Date début</th>
-        <th scope="col">Date fin</th>
-        <th scope="col">Motif d’absence</th>
-        <th scope="col">Action</th>
-      </tr>
-    </thead>
-    <tbody class="">
-      <tr ng-repeat="demandeNonT in demandesNonT track by $index">
-        <td>{{demandeNonT.user.nom}} {{demandeNonT.user.prenom}} </td>
-        <td>{{demandeNonT.date_debut}}</td>
-        <td>{{demandeNonT.date_fin}}</td>
-        <td>{{demandeNonT.motifAb}}</td>
-        <td><a href="#" class="badge badge-success" ng-click="sendAccept($event,demandeNonT.id,demandeNonT.user.id,demandeNonT.date_debut,demandeNonT.date_fin,demandeNonT.user.solde)">Valider</a> -
-          <a href="#" class="badge badge-danger" ng-click="saveIdCongeDemand(demandeNonT.id)" data-toggle="modal" data-target="#exampleModal">Rejeter</a></td>
-      </tr>
-    </tbody>
-  </table>
-  <nav aria-label="..." ng-if="pagesDNT.length>1">
-    <ul class="pagination pagination-sm ">
-      <li class="page-item " ng-class="{active : ActivePageDNT===page}" ng-repeat="page in pagesDNT">
-        <a class="page-link " ng-click="reloadDNTPage(page)" href="#">{{page}}</a>
-      </li>
-    </ul>
-  </nav>
-  <hr>
-  <br>
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Demande informations</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="row ">
-            <div class="col">
-              <label for="exampleFormControlTextarea1">Ajouter un motif de refus :</label>
-              <textarea class="form-control" required ng-model="motifR" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
+  <div class="tab-pane" id="traitees">
+    <div class="container">
+      <div class="row">
+        <h5 class="my-sm-0" align="center">Liste des demandes non traitée</h5>
+        <div class="float-right" style="margin-left: 30%;">
+          <form class="form-inline" autocomplete="off" align="center">
+            <input ng-keyup="complete(motCle)" ng-model=motCle ng-change="find()" class="form-control " type="search" placeholder="Rechercher" aria-label="Search">
+          </form>
+          <div class="autocompleteAdmin">
+            <ul class="list-group">
+              <li class="list-group-item py-2" ng-repeat="item in filterList track by $index">{{item}}</li>
+            </ul>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" ng-click="sendReject()" class="btn btn-primary">Confirmer</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <table class="table table-striped table-bordered">
+          <thead class="table-primary">
+            <tr>
+              <th scope="col">Salarié
+                <a ng-click="set('etat')">
+                  <i class="fa fa-fw fa-sort"></i>
+                </a>
+              </th>
+              <th scope="col">Date début
+                <a ng-click="set('etat')">
+                  <i class="fa fa-fw fa-sort"></i>
+                </a>
+              </th>
+              <th scope="col">Date fin
+                <a ng-click="set('etat')">
+                  <i class="fa fa-fw fa-sort"></i>
+                </a>
+              </th>
+              <th scope="col">Motif d’absence
+                <a ng-click="set('etat')">
+                  <i class="fa fa-fw fa-sort"></i>
+                </a>
+              </th>
+              <th scope="col">Action
+              </th>
+            </tr>
+          </thead>
+          <tbody class="">
+            <tr ng-repeat="demandeNonT in demandesNonT track by $index">
+              <td>{{demandeNonT.user.nom}} {{demandeNonT.user.prenom}} </td>
+              <td>{{demandeNonT.date_debut}}</td>
+              <td>{{demandeNonT.date_fin}}</td>
+              <td>{{demandeNonT.motifAb}}</td>
+              <td><a href="#" class="badge badge-success" ng-click="sendAccept($event,demandeNonT.id,demandeNonT.user.id,demandeNonT.date_debut,demandeNonT.date_fin,demandeNonT.user.solde)">Valider</a> -
+                <a href="#" class="badge badge-danger" ng-click="saveIdCongeDemand(demandeNonT.id)" data-toggle="modal" data-target="#exampleModal">Rejeter</a></td>
+            </tr>
+          </tbody>
+        </table>
+        <nav aria-label="..." ng-if="pagesDNT.length>1">
+          <ul class="pagination pagination-sm ">
+            <li class="page-item " ng-class="{active : ActivePageDNT===page}" ng-repeat="page in pagesDNT">
+              <a class="page-link " ng-click="reloadDNTPage(page)" href="#">{{page}}</a>
+            </li>
+          </ul>
+        </nav>
+        <div class="alert alert-success col-md-5" ng-if="showMsgValid" role="alert">
+          demande enregistrée :) !
+        </div>
+        <div class="alert alert-success col-md-5" ng-if="showMsgError" role="alert">
+          échec d'envoi !
         </div>
       </div>
     </div>
   </div>
-  <div class="alert alert-success col-md-5" ng-if="showMsgValid" role="alert">
-    demande enregistrée :) !
+  <div class="tab-pane" id="nonTraitees">
+    <div class="container">
+      <div class="row">
+        <h5 align="center">Liste des demandes traitées </h5>
+        <table class="table table-hover">
+          <thead class="table-primary">
+            <tr>
+              <th scope="col">Salarié
+                <a ng-click="set('demandeT.user.nom')">
+                  <i class="fa fa-fw fa-sort"></i>
+                </a>
+              </th>
+              <th scope="col">Date début
+                <a ng-click="set('demandeT.date_debut')">
+                  <i class="fa fa-fw fa-sort"></i>
+                </a>
+              </th>
+              <th scope="col">Date fin
+                <a ng-click="set('demandeT.date_fin')">
+                  <i class="fa fa-fw fa-sort"></i>
+                </a>
+              </th>
+              <th scope="col">Motif d’absence
+                <a ng-click="set('motifAb')">
+                  <i class="fa fa-fw fa-sort"></i>
+                </a>
+              </th>
+              <th scope="col">Etat
+                <a ng-click="set('etat')">
+                  <i class="fa fa-fw fa-sort"></i>
+                </a>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="">
+            <tr data-toggle="modal" data-target="#exampleModal2" ng-repeat="demandeT in demandesT |orderBy:orderByField:reverseSort" ng-click="getModelInfo(demandeT.id)">
+              <td>{{demandeT.user.nom}} {{demandeT.user.prenom}} </td>
+              <td>{{demandeT.date_debut}}</td>
+              <td>{{demandeT.date_fin}}</td>
+              <td>{{demandeT.motifAb}}</td>
+              <td>{{demandeT.etat}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <nav aria-label="..." ng-if="pagesDT.length>1">
+          <ul class="pagination pagination-sm ">
+            <li class="page-item " ng-class="{active : ActivePageDT===page}" ng-repeat="page in pagesDT">
+              <a class="page-link " ng-click="reloadDTPage(page)" href="#">{{page}}</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
   </div>
-  <div class="alert alert-success col-md-5" ng-if="showMsgError" role="alert">
-    échec d'envoi !
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Demande informations</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row ">
+          <div class="col">
+            <label for="exampleFormControlTextarea1">Ajouter un motif de refus :</label>
+            <textarea class="form-control" required ng-model="motifR" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" ng-click="sendReject()" class="btn btn-primary">Confirmer</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
   </div>
-  <h2 align="center">Liste de demandes traitée</h2>
+</div>
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Demande informations</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label>Date debut : {{myModel[0].date_debut}}</label></br>
+        <label>Date fin : {{myModel[0].date_fin}}</label></br>
+        <label>Etat : {{myModel[0].etat}}</label></br>
+        <label>Motif de l’absence : {{myModel[0].motifAb}}</label></br>
+        <label ng-if="myModel[0].motifR">Motif de refus : {{myModel[0].motifR}}</label></br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="addUserModale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ajouter un utilisateur</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" method="post" ng-submit="addUser()" name="myForm">
+          <div class="alert alert-danger" ng-if="showPasswordError" role="alert">
+            Veuillez vérifier votre mot de passe !
+          </div>
+          <div class="alert alert-danger" ng-if="showEmailError" role="alert">
+            Un compte existe déjà pour cette adresse mail !
+          </div>
+          <div class="form-group">
+            <label for="name" class="cols-sm-2 control-label">Nom</label>
+            <div class="cols-sm-10">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" ng-model="u.nom" id="nom" placeholder="Entez votre nom" required autofocus />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="name" class="cols-sm-2 control-label">Prenom</label>
+            <div class="cols-sm-10">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" ng-model="u.prenom" id="prenom" placeholder="Entez votre prenom" required />
+              </div>
+            </div>
+          </div>
 
-  <table class="table table-hover">
-    <thead class="table-primary">
-      <tr>
-        <th scope="col">Salarié</th>
-        <th scope="col">Date début</th>
-        <th scope="col">Date fin</th>
-        <th scope="col">Motif d’absence</th>
-        <th scope="col">Etat</th>
-      </tr>
-    </thead>
-    <tbody class="">
-      <tr data-toggle="modal" data-target="#exampleModal2" ng-repeat="demandeT in demandesT" ng-click="getModelInfo(demandeT.id)">
-        <td>{{demandeT.user.nom}} {{demandeT.user.prenom}} </td>
-        <td>{{demandeT.date_debut}}</td>
-        <td>{{demandeT.date_fin}}</td>
-        <td>{{demandeT.motifAb}}</td>
-        <td>{{demandeT.etat}}</td>
-      </tr>
-    </tbody>
-  </table>
-  <nav aria-label="..." ng-if="pagesDT.length>1">
-    <ul class="pagination pagination-sm ">
-      <li class="page-item " ng-class="{active : ActivePageDT===page}" ng-repeat="page in pagesDT">
-        <a class="page-link " ng-click="reloadDTPage(page)" href="#">{{page}}</a>
-      </li>
-    </ul>
-  </nav>
-  <hr>
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Demande informations</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <label>Date debut : {{myModel[0].date_debut}}</label></br>
-          <label>Date fin : {{myModel[0].date_fin}}</label></br>
-          <label>Etat : {{myModel[0].etat}}</label></br>
-          <label>Motif de l’absence : {{myModel[0].motifAb}}</label></br>
-          <label ng-if="myModel[0].motifR">Motif de refus : {{myModel[0].motifR}}</label></br>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
+          <div class="form-group">
+            <label for="email" class="cols-sm-2 control-label">Email</label>
+            <div class="cols-sm-10">
+              <div class="rihabmer1input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                <input type="email" class="form-control" ng-model="u.email" id="email" placeholder="Entez votre mail" required />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="sel1">Role</label>
+            <select class="form-control" id="sel1" ng-model="u.role">
+              <option value="admin">Admin</option>
+              <option value="user">User</option>
+
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="password" class="cols-sm-2 control-label">Mot de passe <small>(6 caractére au minimum)</small></label>
+            <div class="cols-sm-10">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                <input type="password" class="form-control" ng-model="u.password" id="password" placeholder="Entez votre mot de passe" required />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirm" class="cols-sm-2 control-label">confirmez mot de passe</label>
+            <div class="cols-sm-10">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                <input type="password" class="form-control" ng-model="passwordConfirm" id="confirm" placeholder="Confirmez votre mot de passe" required />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group ">
+            <button ng-disabled="myForm.$invalid || myForm.$pending" type="submit" class="btn btn-primary btn-lg btn-block login-button" style="background-color:#e6b31e ; border : 0px ;">S'inscrire</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
