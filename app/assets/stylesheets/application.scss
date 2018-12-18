@@ -10,14 +10,13 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
-
- *= require_tree .
- *= require_self
- *= require font-awesome
  */
-.mt-6{
+
+
+//= require font-awesome
+//= require_self
+//= require_tree
+@import "bootstrap";
+ .mt-6{
     margin-top: 10rem !important;
 }
-
-@import "bootstrap-sprockets";
-@import "bootstrap";
