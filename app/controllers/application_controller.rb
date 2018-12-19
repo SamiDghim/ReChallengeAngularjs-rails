@@ -10,8 +10,9 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.permit :account_update, keys: added_attrs
     end
 
+     def index
 
-    def index
+   
       render 'application/index'
     end
 

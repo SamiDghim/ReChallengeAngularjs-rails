@@ -23,7 +23,7 @@ body {
   font-family: "Roboto";
 }
 #navbar {
-  background-color: #2b2b28 ;
+  background-color: #383838 ;
 }
 #navbar a {
       color: #fff;
@@ -39,10 +39,41 @@ body {
     font-size: larger;
     margin-bottom: 15px;
     margin-top: 15px;
+
 }
 .btnProfil  a{
   color :#000
 }
 .table {
   box-shadow: 0 3px 6px #38383847;
+  border-radius: 11px;
+  margin-top: 10px ;
+}
+.table-primary {
+  background-color: #e6b31e;
+  color: white;
+}
+.table-primary :hover{
+  background-color: #383838;
+}
+.table-primary a{
+  cursor: pointer;
+}
+.listeDemandeDiv{
+
+}
+.btnDemander{
+  background-color: #383838 ;
+  border : 0 ;
+float :  right;
+}
+td a {
+  cursor: pointer;
+}
+
+
+h5 {
+  font-size: xx-large;
+font-family: "Roboto";
+font-weight: lighter;
 }

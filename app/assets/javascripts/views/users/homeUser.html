@@ -1,79 +1,56 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-dark" id="navbar">
-  <a class="navbar-brand" href="#">Dashboard</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto" >
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="#">L'état de l'équipe </a>
-      </li>
-    </ul>
-    <ul class="navbar-nav ">
-      <div class="dropdown  btnProfil">
-        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
-        <i class="fa fa-user-circle"></i>
-        </button>
-        <div class="dropdown-menu" style="margin-left: -96px;" >
-            <a style="color :#000" class="nav-link" href="#">Profil</a>
-            <a style="color :#000" class="nav-link" ng-click="logout()" href="#">Se déconnecter</a>
-        </div>
-      </div>
-    </ul>
-  </div>
-</nav>
-<ng-Welcome user="user"></ng-Welcome>
-<div class="container">
-  <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-  Demander un congé
-  </button>
-  <!-- Demande de congé form -->
-  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Demande de congé</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-          <form name="myForm" ng-submit="sendDemande()">
-        <div class="modal-body">
-            <div class="alert alert-success col-md-5" ng-if="showMsgValid" role="alert">
-              Demande enregistré :) !
-            </div>
-            <div class="alert alert-danger col-md-5" ng-if="showMsgError" role="alert">
-              échec d'envoi !
-            </div>
-            <div class="row col-md-12">
-              <div class="col-md-6">
-                <label class=" col-form-label">Date début</label>
-                <input required ng-model="dateD" class="form-control" type="date">
-              </div>
-              <div class="col-md-6">
-                <label class="col-form-label">Date fin</label>
-                <input required ng-model="dateF" class="form-control" type="date">
-              </div>
-            </div>
-            <p></p>
-            <div class="row ">
-              <div class="col-md-12">
-                <label class="col-form-label">Motif d'absence</label>
-                <input type="text "class="form-control" required ng-model="motifAb" id="exampleFormControlTextarea1" rows="3"></input>
-              </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button ng-disabled="myForm.$invalid || myForm.$pending" type="submit" class="btn btn-primary">Demande</button>
-        </div>
-      </form>
-      </div>
-    </div>
-  </div>
-  <ng-user-table-demands></ng-user-table-demands>
+<entete ng-if="user!=null"></entete>
+<div class="container" style="margin-top: 60px;">
+ <div class="row">
+   <div class="col-md-12">
+       <button type="button" class="btn btn-primary btnDemander" data-toggle="modal" data-target="#BtnDemandeCongeModal">
+       <i class="fa fa-plus"></i> Ajouter une demande
+       </button>
+   </div>
+   <div class="modal fade" id="BtnDemandeCongeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+     <div class="modal-dialog modal-lg" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title" id="exampleModalLongTitle">Demande de congé</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+           </button>
+         </div>
+           <form name="myForm" ng-submit="sendDemande()">
+         <div class="modal-body">
+             <div class="alert alert-success col-md-5" ng-if="showMsgValid" role="alert">
+               Demande enregistré :) !
+             </div>
+             <div class="alert alert-danger col-md-5" ng-if="showMsgError" role="alert">
+               échec d'envoi !
+             </div>
+             <div class="row col-md-12">
+               <div class="col-md-6">
+                 <label class=" col-form-label">Date début</label>
+                 <input required ng-model="dateD" class="form-control" type="date">
+               </div>
+               <div class="col-md-6">
+                 <label class="col-form-label">Date fin</label>
+                 <input required ng-model="dateF" class="form-control" type="date">
+               </div>
+             </div>
+             <p></p>
+             <div class="row ">
+               <div class="col-md-12">
+                 <label class="col-form-label">Motif d'absence</label>
+                 <input type="text "class="form-control" required ng-model="motifAb" id="exampleFormControlTextarea1" rows="3"></input>
+               </div>
+             </div>
+         </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         <button ng-disabled="myForm.$invalid || myForm.$pending" type="submit" class="btn btn-primary">Demande</button>
+         </div>
+       </form>
+       </div>
+     </div>
+   </div>
+  <div class="col-md-12"> <ng-user-table-demands></ng-user-table-demands></div>
+ </div>
 </div>
+
+<ui-view></ui-view>

@@ -2,4 +2,9 @@
   scope : {
     user: "="
   }
-  template :"<h1> &#160; Bienvenue  {{user.nom}} {{user.prenom}} ! <small>Votre solde de congé est : {{user.solde}} </small></h1>"
+  template :"
+  <p> Bienvenue
+  {{user.nom}} {{user.prenom}} !
+   Votre solde de congé est :
+     <span style='font-size: larger; color:white' class='badge badge-warning' >{{user.solde}}</span>
+      </p>"
