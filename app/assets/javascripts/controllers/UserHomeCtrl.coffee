@@ -40,17 +40,41 @@
       console.log 'error send demand',error
       $scope.showMsgError = true
 
+  $scope.deleteDemande = (id) ->
+      userService.deleteDemande(id).then (res) ->
+         console.log 'ok'
+      userService.getUserConges($scope.user.id).then (resp) ->
+         $scope.conges = resp
+      .catch (e) ->
+          console.log 'error in delete fuction' ,e
+      ,(error) ->
+        console.log 'error',error
+
   $scope.getModel = (id) ->
     userService.getModel(id).then (res) ->
       $scope.myModel = res
     ,(error) ->
       console.log 'error get model',error
-  $scope.deletDemande = (id) ->
-    userService.deletDemande(id).then (res)->
-      console.log ('ok')
-    userService.getUserConges($scope.user.id).then (resp) ->
-      $scope.conges = resp
-      .catch (e) ->
-        console.log 'error' ,e
-    ,(error) ->
-    console.log 'error delete demand',error
+
+
+
+#  $scope.deleteConge = (id)->
+#      $scope.conges.splice(id)
+
+#  $scope.getSelectedIndex = (id) ->
+
+#    for( i = 0; i< $scope.conges.length ; i++)
+#       if($scope.conges[i].id == id)
+#         return i;
+#         console.log 'weslet'
+#       else
+#         return -1 ;
+#    ,(error) ->
+#     console.log 'error get model',error
+#  function getSelectedIndex(id){
+#      for(var i; i< $scope.conges.length ; i++)
+#        if($scope.conges[i].id == id)
+#          return i;
+#        return -1 ;
+
+#    }

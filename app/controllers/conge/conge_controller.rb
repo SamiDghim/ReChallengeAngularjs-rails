@@ -75,6 +75,13 @@ module Conge
             end
         end
 
+        #added by ayoub delete function
+        # post '/deleteConge/(/:id)'
+        def deleteDemande
+            conge = CongeDemande.destroy(params[:id])
+            render json: {status: 'SUCCESS',message: 'delete conge demand success'},status: :ok
+        end
+
         # post '/AcceptConge/(/:id)'
         def AcceptConge
             p = params[:p]

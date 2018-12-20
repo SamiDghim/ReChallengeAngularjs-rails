@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       get '/search/(/:motCle)/(/:p)', to: 'conge#searchDemandesNonT'
       post '/RejectConge/(/:id)', to: 'conge#RejectConge'
       post '/AcceptConge/(/:id)', to: 'conge#AcceptConge'
-      delete '/deletDemande/(/:id)', to: 'conge#deletDemande'
+      delete '/deleteDemande/(/:id)', to: 'conge#deleteDemande'
 
   end
 
