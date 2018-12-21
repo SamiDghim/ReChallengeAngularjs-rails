@@ -4,8 +4,7 @@
   $scope.orderByField = 'dateD';
   $scope.set = (orderByField ) ->
    $scope.orderByField = orderByField
-
-  $scope.reverseSort = false;
+   $scope.reverseSort = false;
 
   $scope.user = JSON.parse($window.localStorage.getItem("currentUser"))
   if $scope.user?

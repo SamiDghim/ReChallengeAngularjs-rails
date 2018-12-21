@@ -6,6 +6,10 @@
     $scope.ActivePageDT = 1
     $scope.editorState = true
     $scope.showMsgValidEditUser = false
+    $scope.orderByField = 'nom';
+    $scope.set = (orderByField ) ->
+      $scope.orderByField = orderByField
+    $scope.reverseSort = false;
 
     $scope.user = JSON.parse($window.localStorage.getItem("currentUser"))
     if $scope.user?

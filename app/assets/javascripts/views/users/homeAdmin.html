@@ -1,9 +1,4 @@
 <entete ng-if="user!=null"></entete>
-<div class="row col-md-12">
-  <h1> &#160; Bienvenue {{user.nom}} {{user.prenom}} !</h1>
-</div>
-
-
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
   <li class="active">
@@ -59,11 +54,28 @@
       <table class="table table-striped table-bordered">
         <thead class="table-primary">
           <tr>
-            <th  scope="col">Salarié <i class="fa fa-fw fa-sort"></i></th>
-            <th  scope="col">Date début  <i class="fa fa-fw fa-sort"></i></th>
-            <th  scope="col">Date fin  <i class="fa fa-fw fa-sort"></i></th>
-            <th  scope="col">Motif d’absence  <i class="fa fa-fw fa-sort"></i></th>
-            <th scope="col">Action  <i class="fa fa-fw fa-sort"></i></th>
+            <th  scope="col">Salarié
+              <a ng-click="set('etat')"  >
+                <i class="fa fa-fw fa-sort"></i>
+              </a>
+            </th>
+            <th  scope="col">Date début
+              <a ng-click="set('etat')"  >
+                <i class="fa fa-fw fa-sort"></i>
+              </a>
+            </th>
+            <th  scope="col">Date fin
+              <a ng-click="set('etat')"  >
+                <i class="fa fa-fw fa-sort"></i>
+              </a>
+            </th>
+            <th  scope="col">Motif d’absence
+              <a ng-click="set('etat')"  >
+                <i class="fa fa-fw fa-sort"></i>
+              </a>
+            </th>
+            <th scope="col">Action
+            </th>
           </tr>
         </thead>
         <tbody class="">
@@ -84,75 +96,51 @@
           </li>
         </ul>
       </nav>
+      <div class="alert alert-success col-md-5" ng-if="showMsgValid" role="alert">
+        demande enregistrée :) !
+      </div>
+      <div class="alert alert-success col-md-5" ng-if="showMsgError" role="alert">
+        échec d'envoi !
+      </div>
     </div>
   </div>
 </div>
 <div class="tab-pane" id="nonTraitees">
   <div class="container">
   <div class="row">
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Demande informations</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="row ">
-              <div class="col">
-                <label for="exampleFormControlTextarea1">Ajouter un motif de refus :</label>
-                <textarea class="form-control" required ng-model="motifR" id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" ng-click="sendReject()" class="btn btn-primary">Confirmer</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="alert alert-success col-md-5" ng-if="showMsgValid" role="alert">
-      demande enregistrée :) !
-    </div>
-    <div class="alert alert-success col-md-5" ng-if="showMsgError" role="alert">
-      échec d'envoi !
-    </div>
-    <h2 align="center">Liste des demandes traitées </h2>
+    <h5 align="center">Liste des demandes traitées </h5>
     <table class="table table-hover">
       <thead class="table-primary">
         <tr>
           <th scope="col">Salarié
-            <a ng-click="" >
+            <a ng-click="set('demandeT.user.nom')"  >
               <i class="fa fa-fw fa-sort"></i>
             </a>
           </th>
           <th scope="col">Date début
-            <a ng-click="" >
+              <a ng-click="set('demandeT.date_debut')"  >
               <i class="fa fa-fw fa-sort"></i>
             </a>
           </th>
           <th scope="col">Date fin
-            <a ng-click="" >
+            <a ng-click="set('demandeT.date_fin')"  >
               <i class="fa fa-fw fa-sort"></i>
             </a>
           </th>
           <th scope="col">Motif d’absence
-            <a ng-click="" >
+              <a ng-click="set('motifAb')"  >
               <i class="fa fa-fw fa-sort"></i>
             </a>
           </th>
           <th scope="col">Etat
-            <a ng-click="" >
+            <a ng-click="set('etat')"  >
               <i class="fa fa-fw fa-sort"></i>
             </a>
           </th>
         </tr>
       </thead>
       <tbody class="">
-        <tr data-toggle="modal" data-target="#exampleModal2" ng-repeat="demandeT in demandesT" ng-click="getModelInfo(demandeT.id)">
+        <tr data-toggle="modal" data-target="#exampleModal2" ng-repeat="demandeT in demandesT |orderBy:orderByField:reverseSort" ng-click="getModelInfo(demandeT.id)">
           <td>{{demandeT.user.nom}} {{demandeT.user.prenom}} </td>
           <td>{{demandeT.date_debut}}</td>
           <td>{{demandeT.date_fin}}</td>
@@ -171,11 +159,33 @@
   </div>
   </div>
 </div>
-
 </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Demande informations</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row ">
+            <div class="col">
+              <label for="exampleFormControlTextarea1">Ajouter un motif de refus :</label>
+              <textarea class="form-control" required ng-model="motifR" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" ng-click="sendReject()" class="btn btn-primary">Confirmer</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-
-  <!-- Modal -->
 <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
