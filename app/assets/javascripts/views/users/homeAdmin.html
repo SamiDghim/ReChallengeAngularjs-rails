@@ -1,151 +1,182 @@
-<nav class="navbar navbar-expand navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">ADMIN</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarsExample02">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
-      </li>
-    </ul>
-    <ul class="navbar-nav ">
-      <li class="nav-item active">
-        <a class="nav-link" ng-click="logout()" href="#">Se déconnecter</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-<p></p>
+<entete ng-if="user!=null"></entete>
 <div class="row col-md-12">
   <h1> &#160; Bienvenue {{user.nom}} {{user.prenom}} !</h1>
 </div>
-<br>
-<div class="container">
 
-  <grid-screen>
-    <grid-columns>
-      <grid-column title="#" field="id"></grid-column>
-      <grid-column title="Nom" field="nom"></grid-column>
-      <grid-column title="Prenom" field="prenom"></grid-column>
-      <grid-column title="Email" field="email"></grid-column>
-      <grid-column title="Role" field="role"></grid-column>
-      <grid-column title="Solde" field="solde"></grid-column>
-      <grid-column title="Créer le" field="created_at"></grid-column>
-    </grid-columns>
-    <grid with-inline-editor></grip>
-  </grid-screen>
-  <p></p>
-  <hr>
-  <br>
-  <br>
-  <h2 class="my-sm-0" align="center" >Liste des demandes non traitée</h2>
-  <div class="float-right">
-    <form class="form-inline" autocomplete="off" align="center">
-      <input ng-keyup="complete(motCle)" ng-model=motCle ng-change="find()" class="form-control " type="search" placeholder="Rechercher" aria-label="Search">
-    </form>
-    <div class="autocompleteAdmin">
-      <ul class="list-group">
-        <li class="list-group-item py-2" ng-repeat="item in filterList track by $index">{{item}}</li>
-      </ul>
-    </div>
-  </div>
 
-  <br>
-  <br>
-
-  <table class="table table-hover">
-    <thead class="table-primary">
-      <tr>
-        <th scope="col">Salarié</th>
-        <th scope="col">Date début</th>
-        <th scope="col">Date fin</th>
-        <th scope="col">Motif d’absence</th>
-        <th scope="col">Action</th>
-      </tr>
-    </thead>
-    <tbody class="">
-      <tr ng-repeat="demandeNonT in demandesNonT track by $index">
-        <td>{{demandeNonT.user.nom}} {{demandeNonT.user.prenom}} </td>
-        <td>{{demandeNonT.date_debut}}</td>
-        <td>{{demandeNonT.date_fin}}</td>
-        <td>{{demandeNonT.motifAb}}</td>
-        <td><a href="#" class="badge badge-success" ng-click="sendAccept($event,demandeNonT.id,demandeNonT.user.id,demandeNonT.date_debut,demandeNonT.date_fin,demandeNonT.user.solde)">Valider</a> -
-          <a href="#" class="badge badge-danger" ng-click="saveIdCongeDemand(demandeNonT.id)" data-toggle="modal" data-target="#exampleModal">Rejeter</a></td>
-      </tr>
-    </tbody>
-  </table>
-  <nav aria-label="..." ng-if="pagesDNT.length>1">
-    <ul class="pagination pagination-sm ">
-      <li class="page-item " ng-class="{active : ActivePageDNT===page}" ng-repeat="page in pagesDNT">
-        <a class="page-link " ng-click="reloadDNTPage(page)" href="#">{{page}}</a>
-      </li>
-    </ul>
-  </nav>
-  <hr>
-  <br>
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Demande informations</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="row ">
-            <div class="col">
-              <label for="exampleFormControlTextarea1">Ajouter un motif de refus :</label>
-              <textarea class="form-control" required ng-model="motifR" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" ng-click="sendReject()" class="btn btn-primary">Confirmer</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active">
+    <a href="#users" role="tab" data-toggle="tab" class="nav-link active" target="_self">
+      Utilisateurs
+    </a>
+  </li>
+  <li>
+    <a href="#traitees" role="tab" data-toggle="tab" class="nav-link" target="_self">
+      Demandes non traitées
+    </a>
+  </li>
+  <li>
+    <a href="#nonTraitees" role="tab" data-toggle="tab" class="nav-link" target="_self" target="_self">
+     Demandes traitées
+    </a>
+  </li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="users">
+    <div class="container">
+      <div class="row">
+        <grid-screen>
+          <grid-columns>
+            <grid-column title="#" field="id"></grid-column>
+            <grid-column title="Nom" field="nom"></grid-column>
+            <grid-column title="Prenom" field="prenom"></grid-column>
+            <grid-column title="Email" field="email"></grid-column>
+            <grid-column title="Role" field="role"></grid-column>
+            <grid-column title="Solde" field="solde"></grid-column>
+            <grid-column title="Créer le" field="created_at"></grid-column>
+          </grid-columns>
+          <grid with-inline-editor></grip>
+        </grid-screen>
       </div>
     </div>
   </div>
-  <div class="alert alert-success col-md-5" ng-if="showMsgValid" role="alert">
-    demande enregistrée :) !
+<div class="tab-pane" id="traitees">
+  <div class="container">
+    <div class="row" >
+      <h5 class="my-sm-0" align="center" >Liste des demandes non traitée</h5>
+      <div class="float-right" style="margin-left: 30%;">
+        <form class="form-inline" autocomplete="off" align="center">
+          <input ng-keyup="complete(motCle)" ng-model=motCle ng-change="find()" class="form-control " type="search" placeholder="Rechercher" aria-label="Search">
+        </form>
+        <div class="autocompleteAdmin">
+          <ul class="list-group">
+            <li class="list-group-item py-2" ng-repeat="item in filterList track by $index">{{item}}</li>
+          </ul>
+        </div>
+      </div>
+      <table class="table table-striped table-bordered">
+        <thead class="table-primary">
+          <tr>
+            <th  scope="col">Salarié <i class="fa fa-fw fa-sort"></i></th>
+            <th  scope="col">Date début  <i class="fa fa-fw fa-sort"></i></th>
+            <th  scope="col">Date fin  <i class="fa fa-fw fa-sort"></i></th>
+            <th  scope="col">Motif d’absence  <i class="fa fa-fw fa-sort"></i></th>
+            <th scope="col">Action  <i class="fa fa-fw fa-sort"></i></th>
+          </tr>
+        </thead>
+        <tbody class="">
+          <tr ng-repeat="demandeNonT in demandesNonT track by $index">
+            <td>{{demandeNonT.user.nom}} {{demandeNonT.user.prenom}} </td>
+            <td>{{demandeNonT.date_debut}}</td>
+            <td>{{demandeNonT.date_fin}}</td>
+            <td>{{demandeNonT.motifAb}}</td>
+            <td><a href="#" class="badge badge-success" ng-click="sendAccept($event,demandeNonT.id,demandeNonT.user.id,demandeNonT.date_debut,demandeNonT.date_fin,demandeNonT.user.solde)">Valider</a> -
+              <a href="#" class="badge badge-danger" ng-click="saveIdCongeDemand(demandeNonT.id)" data-toggle="modal" data-target="#exampleModal">Rejeter</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <nav aria-label="..." ng-if="pagesDNT.length>1">
+        <ul class="pagination pagination-sm ">
+          <li class="page-item " ng-class="{active : ActivePageDNT===page}" ng-repeat="page in pagesDNT">
+            <a class="page-link " ng-click="reloadDNTPage(page)" href="#">{{page}}</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
-  <div class="alert alert-success col-md-5" ng-if="showMsgError" role="alert">
-    échec d'envoi !
+</div>
+<div class="tab-pane" id="nonTraitees">
+  <div class="container">
+  <div class="row">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Demande informations</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row ">
+              <div class="col">
+                <label for="exampleFormControlTextarea1">Ajouter un motif de refus :</label>
+                <textarea class="form-control" required ng-model="motifR" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" ng-click="sendReject()" class="btn btn-primary">Confirmer</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="alert alert-success col-md-5" ng-if="showMsgValid" role="alert">
+      demande enregistrée :) !
+    </div>
+    <div class="alert alert-success col-md-5" ng-if="showMsgError" role="alert">
+      échec d'envoi !
+    </div>
+    <h2 align="center">Liste des demandes traitées </h2>
+    <table class="table table-hover">
+      <thead class="table-primary">
+        <tr>
+          <th scope="col">Salarié
+            <a ng-click="" >
+              <i class="fa fa-fw fa-sort"></i>
+            </a>
+          </th>
+          <th scope="col">Date début
+            <a ng-click="" >
+              <i class="fa fa-fw fa-sort"></i>
+            </a>
+          </th>
+          <th scope="col">Date fin
+            <a ng-click="" >
+              <i class="fa fa-fw fa-sort"></i>
+            </a>
+          </th>
+          <th scope="col">Motif d’absence
+            <a ng-click="" >
+              <i class="fa fa-fw fa-sort"></i>
+            </a>
+          </th>
+          <th scope="col">Etat
+            <a ng-click="" >
+              <i class="fa fa-fw fa-sort"></i>
+            </a>
+          </th>
+        </tr>
+      </thead>
+      <tbody class="">
+        <tr data-toggle="modal" data-target="#exampleModal2" ng-repeat="demandeT in demandesT" ng-click="getModelInfo(demandeT.id)">
+          <td>{{demandeT.user.nom}} {{demandeT.user.prenom}} </td>
+          <td>{{demandeT.date_debut}}</td>
+          <td>{{demandeT.date_fin}}</td>
+          <td>{{demandeT.motifAb}}</td>
+          <td>{{demandeT.etat}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <nav aria-label="..." ng-if="pagesDT.length>1">
+      <ul class="pagination pagination-sm ">
+        <li class="page-item " ng-class="{active : ActivePageDT===page}" ng-repeat="page in pagesDT">
+          <a class="page-link " ng-click="reloadDTPage(page)" href="#">{{page}}</a>
+        </li>
+      </ul>
+    </nav>
   </div>
-  <h2 align="center">Liste de demandes traitée</h2>
-  <table class="table table-hover">
-    <thead class="table-primary">
-      <tr>
-        <th scope="col">Salarié</th>
-        <th scope="col">Date début</th>
-        <th scope="col">Date fin</th>
-        <th scope="col">Motif d’absence</th>
-        <th scope="col">Etat</th>
-      </tr>
-    </thead>
-    <tbody class="">
-      <tr data-toggle="modal" data-target="#exampleModal2" ng-repeat="demandeT in demandesT" ng-click="getModelInfo(demandeT.id)">
-        <td>{{demandeT.user.nom}} {{demandeT.user.prenom}} </td>
-        <td>{{demandeT.date_debut}}</td>
-        <td>{{demandeT.date_fin}}</td>
-        <td>{{demandeT.motifAb}}</td>
-        <td>{{demandeT.etat}}</td>
-      </tr>
-    </tbody>
-  </table>
-  <nav aria-label="..." ng-if="pagesDT.length>1">
-    <ul class="pagination pagination-sm ">
-      <li class="page-item " ng-class="{active : ActivePageDT===page}" ng-repeat="page in pagesDT">
-        <a class="page-link " ng-click="reloadDTPage(page)" href="#">{{page}}</a>
-      </li>
-    </ul>
-  </nav>
-  <hr>
+  </div>
+</div>
+
+</div>
+
+
   <!-- Modal -->
-  <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -167,4 +198,3 @@
       </div>
     </div>
   </div>
-</div>

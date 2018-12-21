@@ -22,7 +22,6 @@
       $location.path '/login'
     ,(error) ->
       console.log error
-
   $scope.sendDemande = ->
     d1 = moment($scope.dateF)
     d2 = moment($scope.dateD)
@@ -39,15 +38,14 @@
     ,(error) ->
       console.log 'error send demand',error
       $scope.showMsgError = true
-
   $scope.getModel = (id) ->
     userService.getModel(id).then (res) ->
       $scope.myModel = res
     ,(error) ->
       console.log 'error get model',error
+
   $scope.deletDemande = (id) ->
-    userService.deletDemande(id).then (res)->
-      console.log ('ok')
+    userService.deletDemande(id).then (res)-> console.log ('ok')
     userService.getUserConges($scope.user.id).then (resp) ->
       $scope.conges = resp
       .catch (e) ->
