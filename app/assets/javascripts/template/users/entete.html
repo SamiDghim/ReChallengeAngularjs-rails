@@ -21,7 +21,8 @@
         <i class="fa fa-user-circle"></i>
         </button>
         <div class="dropdown-menu" style="margin-left: -96px;" >
-            <a style="color :#000" class="nav-link" href="#">Profil</a>
+            <a style="color :#000" ng-if="user.role =='user' " class="nav-link" href="#">Profil</a>
+            <a style="color :#000" ng-if="user.role =='admin'"class="nav-link" href="/profile-admin">Profil Admin</a>
             <a style="color :#000" class="nav-link" ng-click="logout()" href="#">Se déconnecter</a>
         </div>
       </div>

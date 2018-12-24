@@ -78,4 +78,14 @@
         console.log error , 'Error reject demand'
         deffered.reject(error)
      return deffered.promise
+     
+  this.getModel = (id) ->
+    deffered = $q.defer()
+    $http.get('/conge/getUserCongeModel/'+id).then (model) ->
+      res = model.data.data
+      deffered.resolve(res)
+    ,(error)->
+      console.log error,'model User not found'
+      deffered.reject(error)
+    return deffered.promise
   return this

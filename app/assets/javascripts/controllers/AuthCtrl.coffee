@@ -12,7 +12,6 @@
         $location.path '/AdminHome'
     if !res.data.data?
       $scope.isLogedIn = true
-
    ,(error)->
       console.log error,' User is not logged in'
       $scope.isLogedIn = true

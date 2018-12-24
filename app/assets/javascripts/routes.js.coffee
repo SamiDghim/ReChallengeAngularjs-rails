@@ -27,6 +27,10 @@
     templateUrl: 'views/users/state.html'
 
 
+  .when "/profile-admin",
+    controller:  'profileAdminCtrl'
+    templateUrl: 'views/users/profileAdmin.html'
+
   .otherwise redirectTo: "/login"
 
   $locationProvider.html5Mode({
