@@ -18,6 +18,10 @@
     controller:  'authCtrl'
     templateUrl: 'views/login.html'
 
+  .when "/change",
+    controller:  'homeUserCtrl'
+    templateUrl: 'views/users/profil.html'
+
   .when "/register",
     controller:  'registerCtrl'
     templateUrl: 'views/register.html'
@@ -25,6 +29,10 @@
   .when "/State",
     controller:  'stateCtrl'
     templateUrl: 'views/users/state.html'
+
+  .when "/profil",
+    controller:  'homeUserCtrl'
+    templateUrl: 'views/users/profil.html'
 
 
   .otherwise redirectTo: "/login"

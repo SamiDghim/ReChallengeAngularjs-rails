@@ -76,11 +76,26 @@ module Conge
         end
 
         #added by ayoub delete function
-        # post '/deleteConge/(/:id)'
+        # post '../deleteConge/(/:id)'
         def deleteDemande
             conge = CongeDemande.destroy(params[:id])
             render json: {status: 'SUCCESS',message: 'delete conge demand success'},status: :ok
         end
+
+        #added by ayoub update function
+        # post '../updateConge/(/:id)'
+        def updateDemande
+          conge = CongeDemande.find(params[:id])
+          if conge.update_attributes(conge_params)
+            conges = CongeDemande.paginate(page: p, per_page:2).order('updated_at DESC')
+            render json: {status: 'SUCCESS',message: 'Loaded conges for user after update ',data: conges,total:(conges.total_pages)},status: :ok
+          else
+            render json: {status: 'ERROR',message: 'conge not updated !',data: conge.errors},status: :unprocessable_entity
+          end
+        end
+
+
+
 
         # post '/AcceptConge/(/:id)'
         def AcceptConge

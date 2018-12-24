@@ -56,25 +56,21 @@
     ,(error) ->
       console.log 'error get model',error
 
+  $scope.updateDemande = ->
+    userService.updateDemande($scope.myModel[0].id, $scope.myModel[0])
+    .then (res) ->
+       console.log 'ok'
+    userService.getUserConges($scope.user.id).then (resp) ->
+       $scope.conges = resp
+    .catch (e) ->
+        console.log 'error in update fuction' ,e
+    ,(error) ->
+      console.log 'error',error
 
-
-#  $scope.deleteConge = (id)->
-#      $scope.conges.splice(id)
-
-#  $scope.getSelectedIndex = (id) ->
-
-#    for( i = 0; i< $scope.conges.length ; i++)
-#       if($scope.conges[i].id == id)
-#         return i;
-#         console.log 'weslet'
-#       else
-#         return -1 ;
-#    ,(error) ->
-#     console.log 'error get model',error
-#  function getSelectedIndex(id){
-#      for(var i; i< $scope.conges.length ; i++)
-#        if($scope.conges[i].id == id)
-#          return i;
-#        return -1 ;
-
-#    }
+  $scope.changeInfo = ->
+    userService.changeInfo($scope.user.id, $scope.user.email).then (res) ->
+       console.log 'im here'
+    .catch (e) ->
+        console.log 'error in update fuction' ,e
+    ,(error) ->
+      console.log 'error',error
