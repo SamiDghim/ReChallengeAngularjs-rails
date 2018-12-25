@@ -1,10 +1,14 @@
 @app.controller 'profileAdminCtrl', ($scope,Auth,$location,$http,adminService,$window) ->
+
   $scope.user = JSON.parse($window.localStorage.getItem("currentUser"));
   $scope.showMsgValid = false ;
-
-  $scope.pwd =''
   $scope.newPwd =''
   $scope.CnewPwd =''
+  $scope.parameters = {
+            password: '',
+            password_confirmation: '',
+            reset_password_token:''
+        };
 
   #modifier profil
   $scope.modifier =   ->
@@ -15,4 +19,20 @@
     ,(error) ->
     console.log 'update failed',error
 
-  $scope.modifier =   ->
+  $scope.refreshData = ->
+      $scope.showMsgValid = false ;
+      $scope.parameters.password =''
+      $scope.parameters.password_confirmation =''
+
+  $scope.updatePasswordModal = ->
+   if $scope.parameters.password_confirmation isnt $scope.parameters.password or $scope.parameters.password.length <6
+      $scope.showEmailError = false
+      $scope.showPasswordError = true
+      return
+    else
+    Auth.resetPassword(  $scope.parameters ).then ->
+      $location.path '/home'
+    ,(error)->
+      console.log error,'register failed !'
+
+return true ;
