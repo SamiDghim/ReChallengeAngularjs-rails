@@ -19,7 +19,16 @@
       console.log error,'Users not found'
       deffered.reject(error)
      return deffered.promise
-
+  this.addUser = (data)->
+    console.log 'coucou'
+    deffered = $q.defer()
+    $http.post('/addUser/',data).then (users) ->
+      users = users.data
+      deffered.resolve(users)
+    ,(error)->
+      console.log error,'add failed'
+      deffered.reject(error)
+     return deffered.promise
   this.getAllUsers = ->
     deffered = $q.defer()
     $http.get('/GetAllUsers').then (users) ->
@@ -39,6 +48,17 @@
       console.log error,'User update failed'
       deffered.reject(error)
      return deffered.promise
+
+  this.updatePassword = (id,data)->
+       deffered = $q.defer()
+       $http.put('/updatePassword/'+id, data).then (users) ->
+         console.log users.data
+         users = users.data
+         deffered.resolve(users)
+       ,(error)->
+         console.log error,'User update failed'
+         deffered.reject(error)
+        return deffered.promise
 
   this.findByMc = (mc,Indata)->
     $http.get('/conge/search/'+mc,Indata).then (res) ->
@@ -67,7 +87,14 @@
     utc1 = Date.UTC(a.year(), a.month(), a.date())
     utc2 = Date.UTC(b.year(), b.month(), b.date())
     res = Math.floor((utc2 - utc1) / _MS_PER_DAY)
-    resF = solde-res
+    resF = solde-resdeffered = $q.defer()
+    $http.get('/conge/getUserCongeModel/'+id).then (model) ->
+      res = model.data.data
+      deffered.resolve(res)
+    ,(error)->
+      console.log error,'model User not found'
+      deffered.reject(error)
+    return deffered.promise
     Indata = {id : id,etat :'Accepté',user_id : user_id,solde : resF}
     headers = {'Content-Type': 'application/json'}
     $http.post('/conge/AcceptConge/',Indata,headers).then (response) ->
@@ -78,7 +105,7 @@
         console.log error , 'Error reject demand'
         deffered.reject(error)
      return deffered.promise
-     
+
   this.getModel = (id) ->
     deffered = $q.defer()
     $http.get('/conge/getUserCongeModel/'+id).then (model) ->

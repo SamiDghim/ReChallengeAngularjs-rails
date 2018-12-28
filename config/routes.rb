@@ -25,6 +25,8 @@ Rails.application.routes.draw do
    get '/register', to: 'application#index'
    get '/GetAllUsers/(/:p)', to: 'user#GetAllUsers'
    put '/updateUser/(/:id)', to: 'user#updateUser'
+   put '/updatePassword/(/:id)', to: 'user#updatePassword'
+   post '/addUser', to: 'user#addUser'
 #   match '*a', :to => 'application#not_found', via: :get
 
 end

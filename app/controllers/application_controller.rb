@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  require 'pry'
+  
   #protect_from_forgery with: :exception
   protect_from_forgery with: :null_session
   skip_before_action :verify_authenticity_token, raise: false
@@ -11,6 +13,7 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.permit(:SearchDemandeNonT) {|u| u.permit(:nom, :prenom, :email, :password, :password_confirmation) }
       devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
       devise_parameter_sanitizer.permit :account_update, keys: added_attrs
+
     end
 
     def index

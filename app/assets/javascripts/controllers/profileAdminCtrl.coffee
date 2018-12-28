@@ -5,10 +5,17 @@
   $scope.newPwd =''
   $scope.CnewPwd =''
   $scope.parameters = {
-            password: '',
-            password_confirmation: '',
-            reset_password_token:''
+            password: ''
         };
+        
+  $scope.u ={
+    nom :'',
+    prenom :'',
+    role : '' ,
+    email:'',
+    password : '',
+    passwordConfirm :''
+  }
 
   #modifier profil
   $scope.modifier =   ->
@@ -24,15 +31,13 @@
       $scope.parameters.password =''
       $scope.parameters.password_confirmation =''
 
-  $scope.updatePasswordModal = ->
+  $scope.updatePassword = ->
    if $scope.parameters.password_confirmation isnt $scope.parameters.password or $scope.parameters.password.length <6
       $scope.showEmailError = false
       $scope.showPasswordError = true
       return
     else
-    Auth.resetPassword(  $scope.parameters ).then ->
-      $location.path '/home'
-    ,(error)->
-      console.log error,'register failed !'
+    adminService.updatePassword($scope.user.id,  $scope.parameters ).then ->
+    console.log 'ok'
 
 return true ;

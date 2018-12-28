@@ -3,8 +3,10 @@
   $scope.showMsgError = false
   $scope.orderByField = 'dateD';
   $scope.set = (orderByField ) ->
-   $scope.orderByField = orderByField
-   $scope.reverseSort = false;
+  $scope.orderByField = orderByField
+  $scope.reverseSort = false;
+  $scope.showEmailError = false
+  $scope.showPasswordError = false
 
   $scope.user = JSON.parse($window.localStorage.getItem("currentUser"))
   if $scope.user?
@@ -51,3 +53,16 @@
         console.log 'error' ,e
     ,(error) ->
     console.log 'error delete demand',error
+
+    $scope.register = ->
+      if $scope.passwordConfirm isnt $scope.user.password or $scope.user.password.length <6
+        $scope.showEmailError = false
+        $scope.showPasswordError = true
+        return
+      else
+      Auth.register( $scope.user ).then ->
+        console.log 'ok'
+      ,(error)->
+        $scope.showPasswordError = false
+        $scope.showEmailError = true if error.data.errors.email[0] is "has already been taken"
+        console.log error,'register failed !'
