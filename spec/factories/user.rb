@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :user do
-    nom 'Aissa'
-    prenom 'Mohamed'
-    email 'medFactory@yahoo.com'
+    nom 'MAMMER'
+    prenom 'Rihab'
+    email 'rihabM@yahoo.com'
     password 'usermed'
   end
   factory :random_user, class: User do
