@@ -3,7 +3,7 @@
   $scope.showMsgError = false
   $scope.orderByField = 'dateD';
   $scope.set = (orderByField ) ->
-  $scope.orderByField = orderByField
+    $scope.orderByField = orderByField
   $scope.reverseSort = false;
   $scope.showEmailError = false
   $scope.showPasswordError = false
