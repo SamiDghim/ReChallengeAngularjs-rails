@@ -10,17 +10,14 @@
     $scope.set = (orderByField ) ->
       $scope.orderByField = orderByField
     $scope.reverseSort = false;
-
     $scope.user = JSON.parse($window.localStorage.getItem("currentUser"))
     if $scope.user?
       $location.path '/login' if $scope.user.role isnt "admin"
-
       adminService.getAllDemandsT().then (res) ->
         $scope.demandesT = res.data
         $scope.pagesDT = (num for num in [1..res.total])
       ,(error) ->
         console.log 'error demandsT not found !' ,error
-
       adminService.getAllDemandsNonT().then (res) ->
         $scope.demandesNonT = res.data
         $scope.pagesDNT = (num for num in [1..res.total])
@@ -28,8 +25,6 @@
         console.log 'error users not found !' ,error
      else
        $location.path '/login'
-
-
     $scope.complete = (mc) ->
       $scope.filterList = []
       if mc?
@@ -44,7 +39,6 @@
             myList.push(name.user.nom + ' ' + name.user.prenom) if(name.user.nom.toLowerCase().indexOf(mc.toLowerCase()) >= 0 ) or
             (name.user.prenom.toLowerCase().indexOf(mc.toLowerCase()) >= 0 ) or (username.toLowerCase().indexOf(mc.toLowerCase()) >= 0 )
           console.log 'myList' , myList
-
           $scope.filterList = myList
     $scope.find = ->
         $scope.motCle = "" if !$scope.motCle?
@@ -54,17 +48,14 @@
           $scope.pagesDNT = (num for num in [1..res.data.total])
         ,(error)->
           console.log error,'Search error'
-
     $scope.logout = ->
         Auth.logout().then (oldUser) ->
             $window.localStorage.clear()
             $location.path '/login'
         ,(error) ->
             console.log error
-
     $scope.saveIdCongeDemand = (id) ->
         $scope.idCongeDemand = id
-
     $scope.sendReject = ->
             Indata = {motifR : $scope.motifR, etat :'Réfusé', id : $scope.idCongeDemand }
             adminService.sendReject(Indata).then (res) ->
@@ -85,7 +76,6 @@
             ,(error) ->
                 console.log error , 'Error reject demand'
                 $scope.showMsgError = true
-
     $scope.sendAccept = (event,id,user_id,db,df,solde) ->
             event.preventDefault()
             adminService.sendAccept(id,user_id,db,df,solde).then (res) ->
@@ -109,14 +99,11 @@
             ,(error) ->
               console.log error , 'Error reject demand'
               $scope.showMsgError = true
-
-
     $scope.getModelInfo = (id) ->
             $http.get('/conge/getUserCongeModel/'+id).then (model) ->
                  $scope.myModel = model.data.data
             ,(error)->
                 console.log error,'model not found'
-
     $scope.reloadDNTPage = (p) ->
             if $scope.motCle
               $scope.ActivePageDNT = p
@@ -132,7 +119,6 @@
                 $scope.demandesNonT = res.data.data
               ,(error)->
                 console.log error,'page demandsNonT not found'
-
     $scope.reloadDTPage = (p) ->
             $scope.ActivePageDT = p
             $http.get('conge/GetAllDemandsT/'+p).then (res) ->

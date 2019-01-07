@@ -49,10 +49,7 @@ body {
   border-radius: 11px;
   margin-top: 10px ;
 }
-.table-primary {
-  background-color: #e6b31e;
-  color: white;
-}
+
 .table-primary :hover{
   background-color: #383838;
 }
@@ -95,4 +92,8 @@ font-weight: lighter;
 .input-group-addon{
   margin: auto;
   margin-right: 15px ;
+}
+thead tr  {
+  background-color: #e6b31e;
+  color: white;
 }
