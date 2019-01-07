@@ -52,6 +52,16 @@
         deffered.reject(error)
        return deffered.promise
 
+  this.getAllConges = ->
+    deffered = $q.defer()
+    $http.get('/state').then (res) ->
+      conges = res.data
+      deffered.resolve(conges)
+    ,(error)->
+      console.log error,'Users not found'
+      deffered.reject(error)
+     return deffered.promise
+
   this.getModel = (id) ->
     deffered = $q.defer()
     $http.get('/conge/getUserCongeModel/'+id).then (model) ->

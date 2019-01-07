@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20180925081037) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "conge_demandes", force: :cascade do |t|
     t.date "date_debut"
     t.date "date_fin"

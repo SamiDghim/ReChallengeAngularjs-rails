@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       get '/GetAllDemandsNonT/(/:p)', to: 'conge#GetAllDemandesNonT'
       get '/GetAllDemandsT/(/:p)', to: 'conge#GetAllDemandsT'
       get '/search/(/:motCle)/(/:p)', to: 'conge#searchDemandesNonT'
+      get '/state', to: 'conge#getUserConges'
       post '/RejectConge/(/:id)', to: 'conge#RejectConge'
       post '/AcceptConge/(/:id)', to: 'conge#AcceptConge'
       delete '/deleteDemande/(/:id)', to: 'conge#deleteDemande'
