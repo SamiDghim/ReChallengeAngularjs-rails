@@ -1,0 +1,41 @@
+<entete ng-if="user!=null"></entete>
+<br/>
+<p></p>
+<div class="container">
+  {{ user.encrypted_password }}
+  <div class="main-login main-center col-md-5 offset-md-3">
+    <h3 class="form-signin-heading">Modifier Vos Paramétres</h3>
+    <br/>
+    <form ng-submit="changeInfo()">
+      <div class="alert alert-danger" ng-if="showPasswordError" role="alert">
+        Veuillez vérifier votre mot de passe !
+      </div>
+      <div class="alert alert-danger" ng-if="showEmailError" role="alert">
+        Un compte existe déjà pour cette adresse mail !
+      </div>
+      <div class="input-group">
+        <input type="email" class="form-control" placeholder="Email" ng-model="user.email">
+      </div>
+      <br/>
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Nom" ng-model="user.nom">
+      </div>
+      <br/>
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Prenom" ng-model="user.prenom">
+      </div>
+      <br/>
+      <div class="input-group">
+        <input type="password" class="form-control" ng-model="user.password" id="password" placeholder="Entez votre mot de passe" required />
+      </div>
+      <br/>
+      <div class="input-group">
+        <input type="password" class="form-control" ng-model="passwordConfirm" id="confirm" placeholder="Confirmez votre mot de passe" required />
+      </div>
+
+      <hr>
+      <button class="btn btn-lg btn-primary btn-block"  name="Submit" type="Submit">Comfirmer</button>
+    </form>
+  </div>
+</div>
+</div>

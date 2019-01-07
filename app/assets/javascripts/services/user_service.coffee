@@ -22,9 +22,29 @@
       deffered.reject(error)
     return deffered.promise
 
-    this.deletDemande = (id)->
+  this.updateDemande = (id,data)->
       deffered = $q.defer()
-      $http.delete('/conge/deletDemande/'+id).then (res) ->
+      $http.put('/conge/updateDemande/'+id,data).then (conge) ->
+        deffered.resolve(conge)
+        console.log 'ok'
+      ,(error)->
+        console.log error,'conge update failed'
+        deffered.reject(error)
+       return deffered.promise
+
+  this.changeInfo = (id,data)->
+    deffered = $q.defer()
+    $http.put('/profil/'+id,data).then (users) ->
+      users = users.data
+      deffered.resolve(users)
+    ,(error)->
+      console.log error,'User update failed'
+      deffered.reject(error)
+     return deffered.promise
+
+  this.deleteDemande = (id)->
+      deffered = $q.defer()
+      $http.delete('/conge/deleteDemande/'+id).then (res) ->
         console.log ('here')
         deffered.resolve(res)
       ,(error)->

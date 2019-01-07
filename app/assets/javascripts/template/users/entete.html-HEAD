@@ -11,12 +11,17 @@
       <li class="nav-item active">
         <a class="nav-link" href="/State">L'état de l'équipe </a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="/profil">Profil</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" ng-click="logout()" href="/State">Se déconnecter</a>
-      </li>
-    </ul>  
+    </ul>
+    <ul class="navbar-nav ">
+      <div class="dropdown  btnProfil">
+        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+        <i class="fa fa-user-circle"></i>
+        </button>
+        <div class="dropdown-menu" style="margin-left: -96px;" >
+            <a style="color :#000" class="nav-link" href="/profil">Profil</a>
+            <a style="color :#000" class="nav-link" ng-click="logout()" href="#">Se déconnecter</a>
+        </div>
+      </div>
+    </ul>
   </div>
 </nav>

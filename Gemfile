@@ -10,10 +10,9 @@ gem 'devise_token_auth'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.6'
 #bootstrap
-gem 'bootstrap', '~> 4.1.1'
-gem 'bootstrap-sass', '~> 3.4.0'
+gem 'bootstrap'
 gem 'sassc-rails', '>= 2.0.0'
-gem 'jquery-rails'
+gem 'bootstrap-sass', '~> 3.3.7'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
@@ -27,12 +26,10 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-#gem bootstrap
-gem 'bootstrap-sass', '~> 3.3.7'
-gem 'jquery-rails'
 
 #jquery
 gem 'jquery-ui-rails'
+gem 'jquery-rails'
 gem 'turbolinks'
 gem 'rails-ujs', '~> 0.1.0'
 
@@ -53,7 +50,7 @@ gem 'will_paginate', '~> 3.1.0'
 gem "font-awesome-rails"
 gem 'momentjs-rails'
 #Angular
-gem 'angularjs-rails', '~> 1.5', '>= 1.5.6'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
