@@ -17,9 +17,9 @@
              <th scope="col"><a ng-click="set('etat')" > Etat </a></th>
            </tr>
          </thead>
-         <tbody class="" ng-controller="homeUserCtrl">
+         <tbody class="" ng-controller="stateCtrl">
            <tr ng-repeat="conge in conges |orderBy:orderByField:reverseSort" >
-             <td>{{conge.user_id}}</td>
+             <td>{{congeuser.id}}</td>
              <td>{{conge.date_debut}} </td>
              <td>{{conge.date_fin}}</td>
              <td>{{conge.motifAb}}</td>

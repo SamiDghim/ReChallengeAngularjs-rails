@@ -50,13 +50,6 @@
       ,(error) ->
         console.log 'error',error
 
-  $scope.getAllConges = ->
-    userService.getAllConges().then (res) ->
-      $scope.conges = res.data
-      $scope.pagesDT = (num for num in [1..res.total])
-    ,(error) ->
-      console.log 'error demandsT not found !' ,error
-
   $scope.getModel = (id) ->
     userService.getModel(id).then (res) ->
       $scope.myModel = res

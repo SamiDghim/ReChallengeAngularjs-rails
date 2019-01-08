@@ -56,6 +56,7 @@
     deffered = $q.defer()
     $http.get('/state').then (res) ->
       conges = res.data
+      congeuser = res.congeuser
       deffered.resolve(conges)
     ,(error)->
       console.log error,'Users not found'

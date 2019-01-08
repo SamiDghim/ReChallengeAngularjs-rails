@@ -34,7 +34,8 @@ module Conge
         def GetAllConges
             p = params[:p]
             conges = CongeDemande.paginate(page: p, per_page:2).order('updated_at DESC')
-            render json: {status: 'SUCCESS',message: 'Loaded Congés demandes',data: conges,total:(conges.total_pages)},:include=> :user, status: :ok
+            congeuser = User.joins(:conges).where(conges: { user: user })
+            render json: {status: 'SUCCESS',message: 'Loaded Congés demandes',data: conges,congeuser: congeuser,total:(conges.total_pages)},:include=> :user, status: :ok
         end
 
         # get '/GetAllDemandsT'
