@@ -8,25 +8,25 @@
      <hr>
      <div class="col-md-12">
        <table class="table table-hover ">
-         <thead class="table-primary" >
+         <thead class="table-primary">
            <tr>
-             <th scope="col">Nom Employé</th>
-             <th scope="col"><a ng-click="set('date_debut')" >Date début  </a></th>
-             <th scope="col"><a ng-click="set('date_fin')" > Date fin </a></th>
-             <th scope="col"><a ng-click="set('motifAb')" > Motif d’absence </a></th>
-             <th scope="col"><a ng-click="set('etat')" > Etat </a></th>
+             <th scope="col">Salarié</th>
+             <th scope="col">Date début</th>
+             <th scope="col">Date fin</th>
+             <th scope="col">Motif d’absence</th>
+             <th scope="col">Action</th>
            </tr>
          </thead>
-         <tbody class="" ng-controller="stateCtrl">
-           <tr ng-repeat="conge in conges |orderBy:orderByField:reverseSort" >
-             <td>{{congeuser.id}}</td>
-             <td>{{conge.date_debut}} </td>
-             <td>{{conge.date_fin}}</td>
-             <td>{{conge.motifAb}}</td>
-             <td>{{conge.etat}}</td>
+         <tbody class="">
+           <tr data-toggle="modal" ng-repeat="demandeT in demandesT" ng-click="getModelInfo(demandeT.id)">
+             <td>{{demandeT.user.nom}} {{demandeT.user.prenom}} </td>
+             <td>{{demandeT.date_debut}}</td>
+             <td>{{demandeT.date_fin}}</td>
+             <td>{{demandeT.motifAb}}</td>
+             <td>{{demandeT.etat}}</td>
            </tr>
          </tbody>
-       </table>
+        </table>
      </div>
    </div>
    <hr>

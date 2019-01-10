@@ -63,6 +63,7 @@ group :development, :test do
   gem 'pry', '~> 0.11.3'
   gem 'faker', '~> 1.9', '>= 1.9.1'
   gem 'factory_bot_rails', '~> 4.11', '>= 4.11.1'
+  gem 'guard-rspec' , require: false
 end
 source "https://rails-assets.org" do
   gem "rails-assets-angular-devise"

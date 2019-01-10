@@ -26,8 +26,8 @@
     controller:  'registerCtrl'
     templateUrl: 'views/register.html'
 
-  .when "/State",
-    controller:  'stateCtrl'
+  .when "/state",
+    controller:  'homeUserCtrl'
     templateUrl: 'views/users/state.html'
 
   .when "/profil",

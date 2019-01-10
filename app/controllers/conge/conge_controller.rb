@@ -30,19 +30,19 @@ module Conge
             render json: {status: 'SUCCESS',message: 'Loaded Congés demande T',data: congeDemandesNonT, total:(congeDemandesNonT.total_pages)},:include=> :user, status: :ok
         end
 
-        #added by ayoub -  get '/sate'
-        def GetAllConges
-            p = params[:p]
-            conges = CongeDemande.paginate(page: p, per_page:2).order('updated_at DESC')
-            congeuser = User.joins(:conges).where(conges: { user: user })
-            render json: {status: 'SUCCESS',message: 'Loaded Congés demandes',data: conges,congeuser: congeuser,total:(conges.total_pages)},:include=> :user, status: :ok
-        end
 
         # get '/GetAllDemandsT'
         def GetAllDemandsT
             p = params[:p]
             conge = CongeDemande.where(etat:'Réfusé').or(CongeDemande.where(etat:'Accepté')).paginate(page: p, per_page:2).order('updated_at DESC')
             render json: {status: 'SUCCESS',message: 'Loaded Congés demande NT',data: conge,total:(conge.total_pages)},:include=> :user, status: :ok
+        end
+
+        #added by ayoub -  get '/sate'
+        def GetAllConges
+          p = params[:p]
+          conge = CongeDemande.where(etat:'Accepté').paginate(page: p, per_page:2).order('updated_at DESC')
+          render json: {status: 'SUCCESS',message: 'Loaded Congés demande NT',data: conge,total:(conge.total_pages)},:include=> :user, status: :ok
         end
 
         # get '/search/(/:motCle)'

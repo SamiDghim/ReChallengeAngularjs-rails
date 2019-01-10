@@ -16,7 +16,7 @@
       console.log 'reject conges for user' ,e
   else
     $location.path '/login'
-    
+
   $scope.logout = ->
     Auth.logout().then (oldUser) ->
       $window.localStorage.clear()
@@ -27,7 +27,6 @@
   $scope.getAllConges = ->
     userService.getAllConges().then (res) ->
       $scope.conges = res.data
-      $scope.congeuser = res.congeuser
       $scope.pagesDT = (num for num in [1..res.total])
     ,(error) ->
       console.log 'error demandsT not found !' ,error

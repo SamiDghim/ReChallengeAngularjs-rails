@@ -56,6 +56,13 @@
     ,(error) ->
       console.log 'error get model',error
 
+  $scope.getAllConges = ->
+    userService.getAllDemandsT().then (res) ->
+      $scope.demandesT = res.data
+      $scope.pagesDT = (num for num in [1..res.total])
+    ,(error) ->
+      console.log 'error demandsT not found !' ,error
+
   $scope.updateDemande = ->
     userService.updateDemande($scope.myModel[0].id, $scope.myModel[0])
     .then (res) ->

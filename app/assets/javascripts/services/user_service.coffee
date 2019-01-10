@@ -52,12 +52,33 @@
         deffered.reject(error)
        return deffered.promise
 
+  #Added by ayoub /state just testing
   this.getAllConges = ->
     deffered = $q.defer()
-    $http.get('/state').then (res) ->
+    $http.get('/conge/state').then (res) ->
       conges = res.data
-      congeuser = res.congeuser
       deffered.resolve(conges)
+    ,(error)->
+      console.log error,'Users not found'
+      deffered.reject(error)
+     return deffered.promise
+
+    #Added by ayoub /state
+    this.getAllDemandsT = ->
+      deffered = $q.defer()
+      $http.get('/conge/GetDemands').then (res) ->
+        demandsT = res.data
+        deffered.resolve(demandsT)
+      ,(error)->
+        console.log error,'Users not found'
+        deffered.reject(error)
+       return deffered.promise
+
+  this.getAllUsers = ->
+    deffered = $q.defer()
+    $http.get('/state').then (users) ->
+      users = users.data
+      deffered.resolve(users)
     ,(error)->
       console.log error,'Users not found'
       deffered.reject(error)
