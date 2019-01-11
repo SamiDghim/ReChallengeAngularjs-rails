@@ -31,8 +31,11 @@
     controller:  'profileAdminCtrl'
     templateUrl: 'views/users/profileAdmin.html'
 
-  .otherwise redirectTo: "/login"
+  .when "/state-team",
+    controller:  'teamStateCtrl'
+    templateUrl: 'views/users/teamStateAdmin.html'
 
+  .otherwise redirectTo: "/login"
   $locationProvider.html5Mode({
     enabled: true,
     requireBase: false,

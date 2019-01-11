@@ -19,6 +19,7 @@ Rails.application.routes.draw do
    get '/UserHome', to: 'application#index'
    get '/AdminHome', to: 'application#index'
    get '/State', to: 'application#index'
+   get '/state-team', to: 'application#index'
    get '/profile-admin', to: 'application#index'
    get '/GetLoggedUserInfo', to: 'application#GetLoggedUserInfo'
    get '/login', to: 'application#index'

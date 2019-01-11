@@ -1,9 +1,9 @@
 require 'rails_helper'
-require 'pry'
 RSpec.describe User, type: :model do
   context 'validation tests' do
-    let(:user) { build(:random_user) } # User.new({})
-    #let(:user) { create(:user) } # User.create({})
+      # User.new({})
+      let(:user) { build(:random_user) }
+
     it 'ensures last_name presence' do
       user.nom = nil
       expect(user.save).to eq(false)
@@ -11,6 +11,10 @@ RSpec.describe User, type: :model do
     it 'ensures first_name presence' do
       user.prenom = nil
       expect(user.save).to eq(false)
+    end
+    it 'ensures the password >= 6' do
+      user.password = "0000000"
+      expect(user.password.length).to be >= 6
     end
   end
 

@@ -1,6 +1,4 @@
 require 'rails_helper'
-require 'pry'
-
 RSpec.describe 'Status requests' do
   describe 'GET /GetAllUsers/(/:p)' do
     it 'returns a status message' do
@@ -10,7 +8,6 @@ RSpec.describe 'Status requests' do
       expect(response.status).to eql(200)
     end
   end
-
   describe 'GET /GetLoggedUserInfo' do
     it 'returns a status message' do
       get ('/GetLoggedUserInfo')
@@ -19,5 +16,6 @@ RSpec.describe 'Status requests' do
       expect(response.status).to eql(200)
     end
   end
+
 
 end

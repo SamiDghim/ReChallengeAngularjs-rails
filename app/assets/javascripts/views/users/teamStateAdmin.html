@@ -1,0 +1,24 @@
+<entete ng-if="user!=null"></entete>
+<div class="container" ng-init="getAllUsers()">
+  <div class="row">
+    <div class="col-md-12" style="margin-top:20px;">
+      <h5>L'état de l'équipe dans cette semaine </h5>
+    </div>
+    <div class="col-md-12">
+      <table class="table table-hover ">
+        <thead class="table-primary">
+          <tr>
+            <th> Nom & Prenom </th>
+            <th scope="col" ng-repeat="day in weekDays"> {{day}} </th>
+          </tr>
+        </thead>
+        <tbody class="">
+          <tr ng-repeat="user in users" >
+            <td>{{user.nom}} {{user.prenom}} </td>
+            <td ng-repeat="i in weekDays"><i class="fa fa-circle"></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
