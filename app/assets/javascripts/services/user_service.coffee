@@ -1,5 +1,15 @@
 @app.service 'userService', ($http,$q)->
 
+  this.getAllDemandsT = ->
+    deffered = $q.defer()
+    $http.get('/conge/GetAllDemandsT').then (res) ->
+      demandsT = res.data
+      deffered.resolve(demandsT)
+    ,(error)->
+      console.log error,'Users not found'
+      deffered.reject(error)
+     return deffered.promise
+
   this.getUserConges = (id) ->
     deffered = $q.defer()
     $http.get('/conge/GetUserConges/'+id).then (conges) ->
@@ -51,17 +61,6 @@
         console.log error,'cant delete this demande'
         deffered.reject(error)
        return deffered.promise
-
-  this.getAllConges = ->
-    deffered = $q.defer()
-    $http.get('/state').then (res) ->
-      conges = res.data
-      congeuser = res.congeuser
-      deffered.resolve(conges)
-    ,(error)->
-      console.log error,'Users not found'
-      deffered.reject(error)
-     return deffered.promise
 
   this.getModel = (id) ->
     deffered = $q.defer()

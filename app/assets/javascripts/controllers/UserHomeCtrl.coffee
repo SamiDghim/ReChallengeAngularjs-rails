@@ -8,12 +8,17 @@
   $scope.reverseSort = false;
 
   $scope.user = JSON.parse($window.localStorage.getItem("currentUser"))
+
   if $scope.user?
     $location.path '/login' if $scope.user.role isnt "user"
+
     userService.getUserConges($scope.user.id).then (res) ->
       $scope.conges = res
-    .catch (e) ->
-      console.log 'reject conges for user' ,e
+
+    userService.getAllDemandsT().then (res) ->
+      $scope.demandesT = res.data
+      $scope.pagesDT = (num for num in [1..res.total])
+
   else
     $location.path '/login'
   $scope.logout = ->
@@ -62,10 +67,6 @@
        console.log 'ok'
     userService.getUserConges($scope.user.id).then (resp) ->
        $scope.conges = resp
-    .catch (e) ->
-        console.log 'error in update fuction' ,e
-    ,(error) ->
-      console.log 'error',error
 
   $scope.showPasswordError = false
   $scope.changeInfo = ->

@@ -1,0 +1,31 @@
+<entete ng-if="user!=null"></entete>
+<br/><br/>
+<div class="container">
+ <div class="row listeDemandeDiv">
+   <div class="col-md-12">
+     <h5> L'état de toute l'équipe </h5>
+   </div>
+   <hr>
+   <div class="col-md-12">
+     <table class="table table-hover ">
+       <thead class="table-primary" >
+         <tr>
+           <th scope="col">Nom Employé</th>
+           <th scope="col"><a ng-click="set('date_debut')" >Date début  </a></th>
+           <th scope="col"><a ng-click="set('date_fin')" > Date fin </a></th>
+           <th scope="col"><a ng-click="set('motifAb')" > Motif d’absence </a></th>
+         </tr>
+       </thead>
+       <tbody class="">
+         <tr data-toggle="modal" data-target="#exampleModal2" ng-repeat="demandeT in demandesT" ng-click="getModelInfo(demandeT.id)">
+           <td>{{demandeT.user.nom}} {{demandeT.user.prenom}} </td>
+           <td>{{demandeT.date_debut}}</td>
+           <td>{{demandeT.date_fin}}</td>
+           <td>{{demandeT.motifAb}}</td>
+         </tr>
+       </tbody>
+     </table>
+   </div>
+ </div>
+ <hr>
+</div>

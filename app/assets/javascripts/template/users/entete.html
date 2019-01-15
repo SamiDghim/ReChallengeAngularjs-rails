@@ -9,14 +9,18 @@
         <a class="nav-link" href="/home">Accueil <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="/State">L'état de l'équipe </a>
+        <a class="nav-link" href="/listDemands">L'état de l'équipe </a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="/profil">Profil</a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" ng-click="logout()" href="#">Se déconnecter</a>
-      </li>
+    </ul>
+    <ul class="navbar-nav ">
+      <a class="nav-link" ng-click="logout()" href="#">
+        <button class="btn btn-secondary" type="button">
+          Logout
+        </button>
+      </a>
     </ul>
   </div>
 </nav>

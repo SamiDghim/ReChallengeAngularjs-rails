@@ -22,13 +22,13 @@
     controller:  'homeUserCtrl'
     templateUrl: 'views/users/profil.html'
 
+  .when "/listDemands",
+    controller:  'homeUserCtrl'
+    templateUrl: 'views/users/listDemands.html'
+
   .when "/register",
     controller:  'registerCtrl'
     templateUrl: 'views/register.html'
-
-  .when "/State",
-    controller:  'stateCtrl'
-    templateUrl: 'views/users/state.html'
 
   .when "/profil",
     controller:  'homeUserCtrl'
